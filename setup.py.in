@@ -1,0 +1,120 @@
+#!@PYTHON@
+"""
+setup.py file for detectorbank
+"""
+
+""" debug levels (can be |ed):
+
+    1: Report thread start and end + general usage
+    2: Write description of detector normalisation to /tmp/z.dat
+       for search normalisation of stdout for chirp normalisation
+    4: Log SlidingBuffer memory debugging info (LONG!)
+"""
+debug = 1 | 2
+debug = 0
+
+from distutils.core import setup, Extension
+from distutils.command.clean import clean
+from distutils.command.build_ext import build_ext as _build_ext
+from distutils.cmd import Command
+import os
+import shlex
+from subprocess import PIPE, Popen, call
+
+package_name = 'detectorbank'
+
+# Remove the "-Wstrict-prototypes" compiler option, which isn't valid for C++.
+# We shouldn't really have to do this.
+import distutils.sysconfig
+cfg_vars = distutils.sysconfig.get_config_vars()
+for key, value in cfg_vars.items():
+    if type(value) == str:
+        cfg_vars[key] = value.replace("-Wstrict-prototypes", "")
+
+detectorbank = Extension('_detectorbank',
+                           sources=['detectorbank.cpp',
+                                    'profilemanager.cpp',
+                                    'detectorcache.cpp',
+                                    'onsetdetector.cpp',
+                                    'notedetector.cpp',
+                                    'eventdetector.cpp',
+                                    'frequencyshifter.cpp',
+                                    'hilbert.cpp',
+                                    'detectorbank.i'],
+                           language='c++',
+                           swig_opts=['-c++'],
+                           extra_compile_args = ['--std=c++11',
+                                                 #'-Ofast',
+                                                 '-fPIC',
+                                                 '-fcx-limited-range',
+                                                 '-pthread',
+                                                 '-UNDEBUG', # needed for assert()
+                                                 '-fpermissive'
+                                                ],
+                           libraries=['fftw3f'],
+                           define_macros = [('DEBUG', debug)]
+                        )
+
+def removeExtraFiles():
+    os.system('rm -f detectorbank.py detectorbank_wrap.cpp _detectorbank.so documentation.i')
+    os.system('rm -rf html latex xml')
+
+class CleanSWIGtoo(clean):
+    description = 'Custom clean command also removes SWIG-generated files'
+    def run(self):
+        clean.run(self)
+        removeExtraFiles()
+
+class Documentation(Command):
+    description = 'Use doxygen to create online documentation'
+    user_options = []
+    def initialize_options(self):
+        pass
+    def finalize_options(self):
+        pass
+    def run(self):
+        os.system('@PYTHON@ @srcdir@/doxy2swig.py @DX_DOCDIR@/xml/index.xml ./documentation.i')
+        os.system('@PYTHON@ @srcdir@/doc_fix.py ./documentation.i')
+    
+class Build(_build_ext):
+    description = 'Build the extension. Prebuild documentation.i if required'
+    def run(self):
+        if not os.path.isfile('./documentation.i'):
+            print('Need to rebuild documentation.i')
+            # Build documentation.i required for a build
+            Documentation.run(self)
+        # We're going to run Swig ourself because Extension
+        # has difficulty with the concept of source and build
+        # directories.
+        print('Swig @srcdir@/detectorbank.i -> detectorbank_wrap.cpp')
+        swig_cmd = '@SWIG@ -python -c++ -o detectorbank_wrap.cpp' + \
+                   ' -I@srcdir@/src @srcdir@/detectorbank.i'
+        print(swig_cmd)
+        os.system(swig_cmd)
+        # Now do a normal build_ext
+        _build_ext.run(self)
+
+libs = [l.strip() for l in ['@PACKAGE_NAME@', '@AX_PACKAGE_REQUIRES@']]
+detectorbank = Extension('_@PACKAGE_NAME@',
+                            version              = '@PACKAGE_VERSION@',
+                            maintainer           = '@PACKAGE_BUGREPORT@',
+                            sources              = ['detectorbank_wrap.cpp'],
+                            language             = 'c++',
+                            undef_macros         = ['NDEBUG'],
+                            include_dirs         = ['@top_srcdir@/src'],
+                            library_dirs         = ['./src/.libs'],
+                            runtime_library_dirs = ['@libdir@'],
+                            libraries            = libs
+                        )
+
+setup (name = 'detectorbank',
+        version = '1.0.0',
+        author      = 'Keziah Milligan, Nick Bailey',
+        description = 'Note detection bank using Supercritical Hopf Bifurcation',
+        ext_modules = [detectorbank],
+        py_modules  = ['detectorbank'],
+        cmdclass    = {'clean':   CleanSWIGtoo,
+                        'docs':    Documentation,
+                        'buildDB': Build }
+    )
+exit(0)

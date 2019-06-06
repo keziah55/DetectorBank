@@ -1,0 +1,20 @@
+/*!
+ * \page SampleRates A word on sample rates
+ * 
+ * Brief explanation of the sample rates (44.1 kHz or 48kHz) 
+ * which should be used with this software
+ * 
+ * As discussed in \link FrequencyShifterOperation FrequencyShifter: 
+ * Internal Operation \endlink, the maximum frequency which can be 
+ * represented in this system depends on the numerical method and 
+ * normalisation used, but in any case is significantly lower than 
+ * the Nyquist frequency for a linear system. 
+ * Although increasing the sample rate raises the system bandwidth, it 
+ * also increases the minimum detector bandwidth.
+ * In addition, higher sample rates have a deleterious effect on the 
+ * low frequency respones as they cause more pronounced oscillations in  
+ * the \link DetectorBank::absZ absZ\endlink output. 
+ * Applying frequency shifting enables frequencies up to the Nyquist rate 
+ * to be represented, so we recommend that a sample rate of either 44.1kHz 
+ * or 48kHz be used to ensure the best output from the software.
+ */

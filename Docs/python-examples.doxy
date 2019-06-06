@@ -1,0 +1,40 @@
+/*!
+\page PythonExamples Python examples
+
+Some short Python examples to illustrate basic use of the 
+\link DetectorBank::getZ getZ\endlink and \link DetectorBank::absZ absZ\endlink
+methods, the \link detectorcache::DetectorCache DetectorCache\endlink, the 
+\link OnsetDetector OnsetDetector\endlink and the \link FrequencyShifter 
+FrequencyShifter\endlink.
+
+\section SimpleExample Simple Example 
+\include examples/example_getZ_absZ.py
+
+\section DetectorCacheExample Using the DetectorCache
+The previous example required all of the z values to be kept in RAM. For 
+long audio files and/or many detectors, this is impractical. The 
+\link detectorcache::DetectorCache DetectorCache\endlink enables you to 
+store a number of short segments of abs(z) values. If you request a value 
+not currently in the cache, old segments will be deleted and new ones 
+created until the requested sample is reached. This means the DetectorCache 
+can only go forwards: once a segment has been deleted, attempting to access 
+values from it will cause an exception to be thrown. (For more information,
+please see \link SlidingBuffer SlidingBuffer\endlink.)
+\include examples/example_detectorcache.py
+
+\section SaveLoadXMLExmaple Saving and Loading DetectorBank Profiles
+The \link DetectorBank DetectorBank\endlink has a facility to save itself, so
+it can be reloaded, instead of constructing a new DetectorBank with the 
+same parameters.
+\include examples/example_xml_save.py
+This profile can then be loaded into a new program thus:
+\snippet examples/example_xml_load.py xml_load
+
+\section FrequencyShifterExample Using the FrequencyShifter
+This package also contains a FrequencyShifter. You probably won't need to 
+use it in conjunction with a DetectorBank (it will be applied automatically,
+if necessary), but it may be useful in other applications, so here's a short 
+usage example. (Full explantion of the operation of the FrequencyShifter 
+can be found \link FrequencyShifterOperation here\endlink.)
+\include examples/example_frequencyshifter.py
+*/

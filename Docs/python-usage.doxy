@@ -1,0 +1,82 @@
+/*!
+ * \page PythonUsage Using the DetectorBank in Python 
+ * 
+ * detectorbank is a suite of modules which can be used to analyse
+ * audio files with Python, in conjuction with common modules NumPy 
+ * and SciPy.
+ * 
+ * The objects it provides are: DetectorBank, DetectorCache, OnsetDetector and
+ * FrequencyShifter. Example usage of each can be found \link PythonExamples here\endlink.
+ * 
+ * This page provides advice on using these in Python.
+ * 
+ * 
+ * However, due to the language differences between C++ and Python with regard to 
+ * nominal vs duck typing and overloaded constructors, a few features
+ * merit further explanation.
+ * 
+ * Everything discussed below that you need to know in order to use this software
+ * is also illustrated in the \link PythonExamples Python examples\endlink.
+ * 
+ * NumPy arrays should be used for all non-scalar values passed to the DetectorBank.
+ * 
+ * OnsetDetector is given a DB
+ * 
+ * If an argument should be std::size_t, that's a Python int
+ * 
+ * \section DetectorBank
+ * 
+ * A DetectorBank can be constructed either from a list of parameters or from
+ * a saved profile.
+ * 
+ * In the latter case, a profile string and input buffer must be provided
+ * (\link SaveLoadXMLExmaple see example\endlink).
+ * 
+ * In the former, a number of parameters must be provided. 
+ * The `detector_characteristics` argument should be a NumPy array of 
+ * frequency-bandwidth pairs, which can, for example, be created from two arrays 
+ * `zip`ped together as in \link SimpleExample this example\endlink.
+ * 
+ * C++ is statically typed and therefore arguments passed from Python must be of 
+ * the correct type. To prevent any errors, the sample rate, frequencies, bandwidths, 
+ * damping factor and gain are cast to Python's `float` - and number of threads to 
+ * `int` - when the DetectorBank is constructed. 
+ * 
+ * The DetectorBank constructor also requires a `Features` parameter, which is 
+ * explained in full \link FeaturesExplained here\endlink.
+ * 
+ * Both constructors take an input buffer. C++ is expecting `float`s; casting the input
+ * buffer to a `numpy.float32` in Python may be required.
+ * 
+ * Once a DetectorBank has been constructed, you may want to use the 
+ * \link DetectorBank::getZ `getZ()`\endlink and \link DetectorBank::absZ `absZ()`\endlink 
+ * methods. Both take an empty array, which is filled in place (`absZ` also takes the
+ * `getZ` array). The array passed to `getZ` must be of type `numpy.complex128`
+ * 
+ * 
+ * \section DetectorCache
+ * 
+ * Rather than using the `getZ` and `absZ` methods directly, you can construct a 
+ * \link DetectorCache \endlink, which will store - and discard - small buffers
+ * of `absZ` values, thus limiting the amount of memory used. To get a value from
+ * channel `k` at sample `n`, note that you must index the cache with `[k,n]`, not 
+ * `[k][n]` as you may expect.
+ * 
+ * To create a DetectorCache, you first must make a \link Producer \endlink, which
+ * is initialised with a DetectorBank. The Producer provides a number of methods
+ * which return information about the given DetectorBank, for example
+ * \link Producer::getSR sample rate \endlink, 
+ * \link Producer::getFreq_in a given channel's frequency \endlink etc.
+ * 
+ * See \link DetectorCacheExample here \endlink for an example illustrating the above.
+ * 
+ * 
+ * \section FrequencyShifter
+ * 
+ * The \link FrequencyShifter \endlink is used automatically by the DetectorBank if required,
+ * but can also be used as a standalone object \link FrequencyShifterExample thus \endlink.
+ * 
+ * See \link FrequencyShifterOperation here \endlink for an details on the operation of
+ * the FrequencyShifter.
+ * 
+ */

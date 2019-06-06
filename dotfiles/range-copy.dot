@@ -1,0 +1,127 @@
+digraph G {
+    nodesep=.05;
+    rankdir=LR;
+    node [shape=record];
+    subgraph clusterSegs {
+        style=invis;
+        subgraph clusterSegs0 {
+            style=solid
+            node [shape=plaintext]
+            "Segment 0";
+            node [shape=record];
+            node0 [label = "<c0> 0 |<c1> 1 |<c2> ... |<c3> chans-2 |<c4> chans-1 ",height=2.5];
+        }
+        subgraph clusterSegs1 {
+            style=solid
+            node [shape=plaintext,height=0.2]
+            "Segment 1";
+            node [shape=record,width=1,height=0.5];
+            node1 [label = "<c0> 0 |<c1> 1 |<c2> ... |<c3> chans-2 |<c4> chans-1",height=2.5];
+        }
+    }
+    
+    subgraph clusterAudioData {
+        style=invis;
+        rank=same;
+        subgraph clusterAudioData1 {
+            style=solid
+            node [shape=plaintext]
+            "Result Block 0";
+            nodeAbs0 [label=<
+            <table border="0" cellborder="1" cellspacing="0" cellpadding="8">
+            <tr>
+                <td border="0"></td>
+                <td colspan="7" border="0">...</td>
+            </tr>
+            <tr>
+                <td border="0" align="right">Channel c-1</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td border="0" align="right">Channel c</td>
+                <td port="r0ch1"></td>
+                <td></td>
+                <td></td>
+                <td port="start" bgcolor="lightgrey"> start </td>
+                <td bgcolor="lightgrey"></td>
+                <td bgcolor="lightgrey"></td>
+                <td port="last" bgcolor="lightgrey"></td>
+            </tr>
+            <tr>
+                <td border="0" align="right">Channel c+1</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td border="0"></td>
+                <td colspan="7" border="0">...</td>
+            </tr>
+            </table>
+            >];
+        }
+        subgraph clusterAudioData2 {
+            style=solid;
+            rank=max;
+            node [shape=plaintext,height=0.2]
+            "Result Block 1";
+            nodeAbs1 [label=<
+            <table border="0" cellborder="1" cellspacing="0" cellpadding="8">
+            <tr>
+                <td border="0"></td>
+                <td colspan="7" border="0">...</td>
+            </tr>
+            <tr>
+                <td border="0" align="right">Channel c-1</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td border="0" align="right">Channel c</td>
+                <td port="r1ch1" bgcolor="lightgrey"></td>
+                <td bgcolor="lightgrey"></td>
+                <td bgcolor="lightgrey"></td>
+                <td port="end" bgcolor="lightgrey"> end </td>
+                <td></td>
+                <td></td>
+                <td port="last"></td>
+            </tr>
+            <tr>
+                <td border="0" align="right">Channel c+1</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td border="0"></td>
+                <td colspan="7" border="0">...</td>
+            </tr>
+            </table>
+            >];
+        }
+    }
+    
+    node0:c1 -> nodeAbs0:r0ch1;
+    node0:c4 -> nodeAbs0:r0ch1 [style=invis];
+    node1:c1 -> nodeAbs1:r1ch1;
+    node1:c4 -> nodeAbs1:r1ch1 [style=invis];
+}

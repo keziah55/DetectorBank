@@ -1,0 +1,72 @@
+/*!
+\page DetectorCacheDesign DetectorCache design: mapping SlidingBuffer onto a 2-D structure.
+
+\link slidingbuffer::SlidingBuffer SlidingBuffer\endlink provides
+local caching of a data stream, but a DetectorBank operates by
+being initialised with audio data then, on successive calls,
+producing arrays of complex data. Each row in such array contains
+the state locus of a Hopf system's complex variable.
+For an onset detector to work consistently and reliably,
+once a note is detected, the output of a channel has to
+backtrack to the note start by following the rising
+edge of a detector's output back to its origin.
+
+detectorcache::DetectorCache wraps a sliding buffer to permit
+easy access to individual channels, and provides the method
+detectorcache::Producer to interface between a DetectorBank
+that has already been initialised with audio samples
+and the DetectorCache's segments as they require more
+data. DetectorBank::getZ is called to produce the complex
+data, then the absolute values of the returned results
+are taken and used to populate the segments.
+
+To retain compatibility with the Python's numerical libraries,
+2D arrays are allocated in C++ as a single area containing
+(channels*blocksize) result_t values. The API presented
+by a DetectorCache needs to change this view to individual
+channels, caching a given number of samples in each.
+
+The type of SlidingBuffer used to achieve this is defined
+extending slidingbuffer::SlidingBuffer like this:
+
+~~~~~~~~~~{.cxx}
+detectorcache::DetectorCache::DetectorCache(const std::size_t num_segs,
+                                            const std::size_t a_samps,
+                                            detectorcache::Producer& p)
+    : slidingbuffer::SlidingBuffer<result_t *,
+                                   detectorcache::Segment,
+                                   detectorcache::Producer>
+        (num_segs,
+         p.getChans(),
+         p)
+~~~~~~~~~~
+
+Note that each segment of the siding buffer is an instance of
+detectorcache::Segment (specialised Segment class in the
+detectorbank namespace) and its size is the number of channels
+supported by the detectorcache::Producer (determined in turn
+from the DetectorBank with which the Producer was constructed).
+
+A consequence of performing fixed-length block requests to
+`getZ` is that the SlidingBuffer base class can not in fact
+storing channels; it is instead storing pointers to blocks of
+result_t data representing a single block of one channel as shown
+in the following diagram.
+
+Now that the data accessed through a DetectorCache is essentially
+2D, the `[]` operator can no longer be used, at least without
+the overhead of a proxy class (C++11 mandates a single argument).
+Two access methods are therefore provided.
+\link detectorcache::DetectorCache::getResultItem getResultItem\endlink returns
+the value of a single item at a given sample position `n` in
+channel `c`;
+\link detectorcache::DetectorCache::getPreviousResults getPreviousResults\endlink fills
+a given 1D array by copying historical data from the DetectorCache. The resulting
+array holds consecutive samples of data in contiguous memory locations
+even if the original data is spread across the blocks associated with
+different segments. The specified data *ends* with the currentSample,
+and the given number of previous results are copied.
+
+\dotfile range-copy.dot "Using a SlidingBuffer to implement a DetectorCache"
+
+*/

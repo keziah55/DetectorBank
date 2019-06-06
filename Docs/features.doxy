@@ -1,0 +1,78 @@
+/*! 
+\page FeaturesExplained DetectorBank Features
+
+Explantion and suggested usage of the \link DetectorBank::Features Features\endlink 
+parameter of the \link DetectorBank::DetectorBank DetectorBank\endlink.
+
+Three aspects of \link DetectorBank::DetectorBank DetectorBank\endlink performance 
+are controlled by this parameter:
+
+- the numerical method used in the \link DetectorBank::getZ getZ \endlink calculations
+- whether to apply frequency normalisation to the detectors
+- whether to normalise the amplitude of the output
+
+The default \link DetectorBank::Features Features\endlink  set is:
+runge_kutta | freq_unnormalized | amp_normalized
+
+<b>
+If you want to set a bandwidth for any of the detectors (rather than using 
+the default minimum-bandwidth detectors) you must use the Runge-Kutta method and 
+amplitude normalisation.
+</b>
+
+\section NumericalMethod Numerical Method
+
+Options: runge_kutta or central_difference
+
+Two numerical methods are supplied: \link RK4Detector the fourth order Runge-Kutta method 
+\endlink and the \link CDDetector central difference approximation\endlink. 
+Runge-Kutta is recommended for most situations;
+central difference should only be used for minimum-bandwidth detectors in 
+situations where calculation time is an important factor, as the 
+\link DetectorBank::getZ getZ \endlink calculations will be performed roughly three 
+times faster. If you want to set a specific detector bandwidth and/or 
+\link DetectorBank::getZ getZ \endlink calculation time is not the most important
+thing, please use Runge-Kutta. 
+
+Using numerical approximations introduces errors as the frequencies increase.
+\link RK4Detector Runge-Kutta \endlink detectors give reliable results up to higher 
+frequencies than \link CDDetector central difference\endlink.
+\link FreqNormalisation Frequency normalisation \endlink can be used to
+extend the range of the detectors somewhat, without increasing execution time for a
+realtime input stream. \link FrequencyShifterOperation Frequency shifting \endlink
+is also used to extend the system bandwidth to the Nyquist frequency, although this
+requires the input samples to be frequency shifted, so would slow down realtime
+detection.
+
+
+\section FreqNormalisation Frequency Normalisation
+
+Options: freq_unnormalized or search_normalized
+
+As discussed above, \link AbstractDetector::searchNormalize search normalisation \endlink 
+can be used to extend the system bandwidth.
+
+Search normalisation iteratively checks if other frequencies (within certain bounds 
+from the original frequency) give a better response and, if so, adjusts the detector's 
+characteristic frequency. This is applied at \link DetectorBank::DetectorBank 
+DetectorBank\endlink construction time, so has no impact on the time taken to
+execute \link DetectorBank::getZ getZ\endlink.
+
+Note that, as explained above, \link FrequencyShifterOperation frequency shifting \endlink 
+is automatically applied above a given threshold, however this threshold is higher when 
+frequency normalisation is used.
+
+
+\section AmpNormalisation Amplitude Normalisation
+
+Options: amp_unnormalized or amp_normalized
+
+As the underlying system is nonlinear, differences in input parameters, including
+\link DetectorBank::bw bandwidth \endlink, numerical method, frequency normalisation, 
+\link DetectorBank::d damping factor \endlink and \link DetectorBank::gain gain\endlink
+result in output amplitudes which are not linearly related to the input. This means that
+any analysis of the system output which relies on amplitude will be affected by
+detectors with different bandwidths or different gain values across multiple DetectorBanks.
+We therefore introduce \link AbstractDetector::amplitudeNormalize amplitude normalisation\endlink,
+which scales the \link DetectorBank::getZ getZ \endlink output to be in the range -1 to 1.
+*/

@@ -1,0 +1,65 @@
+digraph G {
+    nodesep=.05;
+    nodeDetector [shape=none, label=<
+<table  border="0" cellborder="1" cellspacing="0" cellpadding="14">
+<tr>
+  <td colspan="12" align="left">DetectorBank Audio Buffer</td>
+</tr>
+<tr>
+  <td port="a1" bgcolor="lightyellow"></td>
+  <td bgcolor="lightyellow"></td>
+  <td bgcolor="lightyellow"></td>
+  <td bgcolor="lightyellow"></td>
+  <td port="a2" bgcolor="pink"></td>
+  <td bgcolor="pink"></td>
+  <td bgcolor="pink"></td>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td port="rhs"></td>
+</tr>
+</table> >]
+
+    nodeOutArr1 [shape=none, label=<
+<table  border="0" cellborder="1" cellspacing="0" cellpadding="14">
+<tr>
+  <td port="d" colspan="12" align="left">1st Call</td>
+</tr>
+<tr>
+  <td bgcolor="lightyellow"></td>
+  <td bgcolor="lightyellow"></td>
+  <td bgcolor="lightyellow"></td>
+  <td port="rhs" bgcolor="lightyellow"></td>
+</tr>
+<tr>
+  <td bgcolor="lightyellow"></td>
+  <td bgcolor="lightyellow"></td>
+  <td bgcolor="lightyellow"></td>
+  <td bgcolor="lightyellow"></td>
+</tr>
+</table> >]
+
+    nodeOutArr2 [shape=none, label=<
+<table  border="0" cellborder="1" cellspacing="0" cellpadding="14">
+<tr>
+  <td port="d" colspan="12" align="left">2nd Call</td>
+</tr>
+<tr>
+  <td bgcolor="pink"></td>
+  <td bgcolor="pink"></td>
+  <td port="rhs" bgcolor="pink"></td>
+</tr>
+<tr>
+  <td bgcolor="pink"></td>
+  <td bgcolor="pink"></td>
+  <td bgcolor="pink"></td>
+</tr>
+</table> >];
+
+    nodeDetector:a1 -> nodeOutArr1:d [headport="n"];
+    nodeDetector:a2 -> nodeOutArr2:d [headport="n"];
+    nodeDetector:rhs -> nodeOutArr1:rhs [style=invis];
+    nodeDetector:rhs -> nodeOutArr2:rhs [style=invis];
+}
+

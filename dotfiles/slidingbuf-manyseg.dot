@@ -1,0 +1,39 @@
+digraph G {
+    nodesep=.05;
+    rankdir=LR;
+    node [shape=record,fontsize=9];
+    subgraph clusterSegs {
+        style=invis;
+        subgraph clusterSegs1 {
+            style=solid
+            node [shape=plaintext]
+            "Segment 1";
+            node [shape=record];
+            node1 [label = "<c0> [size] |<c1> [size+1] |<c2> ... |<c3> [2*size-2] |<c4> [2*size-1] ",height=2.5];
+        }
+        subgraph clusterSegs2 {
+            style=solid
+            node [shape=plaintext]
+            "Segment 2";
+            node [shape=record];
+            node2 [label = "<c0> [2*size] |<c1> [2*size+1] |<c2> ... |<c3> [3*size-2] |<c4> [3*size-1] ",height=2.5];
+        }
+        subgraph clusterSegs3 {
+            style=solid
+            node [shape=plaintext]
+            "Segment 3";
+            node [shape=record];
+            node3 [label = "<c0> [3*size] |<c1> [3*size+1] |<c2> ... |<c3> [4*size-2] |<c4> [4*size-1] ",height=2.5];
+        }
+        subgraph clusterSegs4 {
+            style=solid
+            node [shape=plaintext]
+            "Segment 4";
+            node [shape=record];
+            node4 [label = "<c0> [4*size] |<c1> [4*size+1] |<c2> ... |<c3> [5*size-2] |<c4> [5*size-1] ",height=2.5];
+        }
+    }
+    node1:c0 -> node2:c0 [style=invis]
+    node2:c0 -> node3:c0 [style=invis]
+    node3:c0 -> node4:c0 [style=invis]
+}
