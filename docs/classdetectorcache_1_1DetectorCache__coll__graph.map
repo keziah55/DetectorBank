@@ -1,0 +1,7 @@
+<map id="detectorcache::DetectorCache" name="detectorcache::DetectorCache">
+<area shape="rect" id="node2" href="$classslidingbuffer_1_1SlidingBuffer.html" title="slidingbuffer::SlidingBuffer\l\&lt; result_t *, detectorcache\l::Segment, detectorcache::Producer \&gt;" alt="" coords="753,66,997,122"/>
+<area shape="rect" id="node3" href="$classdetectorcache_1_1Producer.html" title="Specialisation of the slidingbuffer::SegmentProducer class to create blocks of DetectorBank analysis ..." alt="" coords="523,42,687,69"/>
+<area shape="rect" id="node4" href="$classslidingbuffer_1_1SegmentProducer.html" title="slidingbuffer::SegmentProducer\l\&lt; result_t *\&gt;" alt="" coords="252,5,456,47"/>
+<area shape="rect" id="node5" href="$classDetectorBank.html" title="Use multiple detectors to find note onsets at given frequencies (with multithreading). " alt="" coords="303,71,405,98"/>
+<area shape="rect" id="node6" href="$classProfileManager.html" title="profilemanager.h " alt="" coords="5,71,115,98"/>
+</map>
