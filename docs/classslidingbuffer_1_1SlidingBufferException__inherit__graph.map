@@ -1,1 +1,5 @@
-build/doxygen-doc/html/classslidingbuffer_1_1SlidingBufferException__inherit__graph.map
+<map id="slidingbuffer::SlidingBufferException" name="slidingbuffer::SlidingBufferException">
+<area shape="rect" id="node2" href="$classslidingbuffer_1_1ExpiredIndexException.html" title="Exception thrown when an apparently valid index (positive, within the extent of the data read so far)..." alt="" coords="232,5,408,47"/>
+<area shape="rect" id="node3" href="$classslidingbuffer_1_1IndexOutOfRangeException.html" title="Exception thown when the entity at position &#39;index&#39; is not yet available and the SegmentProducer for ..." alt="" coords="237,71,403,112"/>
+<area shape="rect" id="node4" href="$classslidingbuffer_1_1NegativeIndexException.html" title="Exception thrown when an attempt was made to access a negative index in the SlidingBuffer. " alt="" coords="228,136,412,177"/>
+</map>

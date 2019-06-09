@@ -1,1 +1,4 @@
-build/doxygen-doc/html/classOnsetDetector__coll__graph.map
+<map id="OnsetDetector" name="OnsetDetector">
+<area shape="rect" id="node2" href="$classDetectorBank.html" title="Use multiple detectors to find note onsets at given frequencies (with multithreading). " alt="" coords="9,95,111,121"/>
+<area shape="rect" id="node3" href="$classProfileManager.html" title="profilemanager.h " alt="" coords="5,5,115,32"/>
+</map>

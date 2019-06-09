@@ -1,1 +1,7 @@
-build/doxygen-doc/html/classdetectorcache_1_1Segment__coll__graph.map
+<map id="detectorcache::Segment" name="detectorcache::Segment">
+<area shape="rect" id="node2" href="$classslidingbuffer_1_1Segment.html" title="slidingbuffer::Segment\l\&lt; result_t *, detectorcache\l::Producer \&gt;" alt="" coords="74,288,250,344"/>
+<area shape="rect" id="node3" href="$classdetectorcache_1_1Producer.html" title="Specialisation of the slidingbuffer::SegmentProducer class to create blocks of DetectorBank analysis ..." alt="" coords="80,199,244,225"/>
+<area shape="rect" id="node4" href="$classslidingbuffer_1_1SegmentProducer.html" title="slidingbuffer::SegmentProducer\l\&lt; result_t *\&gt;" alt="" coords="5,95,209,136"/>
+<area shape="rect" id="node5" href="$classDetectorBank.html" title="Use multiple detectors to find note onsets at given frequencies (with multithreading). " alt="" coords="233,102,336,129"/>
+<area shape="rect" id="node6" href="$classProfileManager.html" title="profilemanager.h " alt="" coords="230,5,339,32"/>
+</map>

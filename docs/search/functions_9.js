@@ -1,0 +1,5 @@
+var searchData=
+[
+  ['negativeindexexception',['NegativeIndexException',['../classslidingbuffer_1_1NegativeIndexException.html#a8fc90288ab5b9dbf9c2cca45fec38030',1,'slidingbuffer::NegativeIndexException']]],
+  ['notedetector',['NoteDetector',['../classNoteDetector.html#a93fda93ff879cda4d4718a2b73ccfff3',1,'NoteDetector::NoteDetector(const parameter_t sr, const inputSample_t *inputBuffer, const std::size_t inputBufferSize, const parameter_t *freqs, const std::size_t freqsSize, const std::size_t edo, const parameter_t bandwidth=default_bandwidth, const int features=default_features, const parameter_t damping=default_damping, const parameter_t gain=default_gain, const std::string path=&quot;log&quot;)'],['../classNoteDetector.html#a1ccec523c13f71f072bcfbedbc9c4d86',1,'NoteDetector::NoteDetector(const parameter_t sr, const inputSample_t *inputBuffer, const std::size_t inputBufferSize, const parameter_t *freqs, const std::size_t freqsSize, const std::size_t edo, const NDOptArgs &amp;args)']]]
+];
