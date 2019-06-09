@@ -1,5 +1,1 @@
-<map id="detectorcache::Producer" name="detectorcache::Producer">
-<area shape="rect" id="node2" href="$classslidingbuffer_1_1SegmentProducer.html" title="slidingbuffer::SegmentProducer\l\&lt; result_t *\&gt;" alt="" coords="5,95,209,136"/>
-<area shape="rect" id="node3" href="$classDetectorBank.html" title="Use multiple detectors to find note onsets at given frequencies (with multithreading). " alt="" coords="233,102,336,129"/>
-<area shape="rect" id="node4" href="$classProfileManager.html" title="profilemanager.h " alt="" coords="230,5,339,32"/>
-</map>
+build/doxygen-doc/html/classdetectorcache_1_1Producer__coll__graph.map
