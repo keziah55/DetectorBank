@@ -1,4 +1,31 @@
-Detectorbank!
+# Detectorbank!
+
+C++/Python software to detect note events using Hopf Bifurcations.
+
+This repo conatins both the DetectorBank and a NoteDetector.
+The NoteDetector comprises an OnsetDetector and a PitchTracker;
+however, the PitchTracker is currently not implemented.
+
+## Requirements
+
+On a Debian system, the following packages should be installed:
+
+* python3-dev
+* swig (to build python3 bindings)
+* build-essential
+* autoconf-archive
+* libtool
+* libcereal-dev
+* librapidxml-dev
+* libfftw3-dev
+* doxygen (for the documentation)
+* python3 (for the documentation as well as the SWIG bindings)
+* graphviz (for enhanced documentation)
+* texlive-latex-base (for the documentation)
+* python3-tap (for the unit tests)
+
+
+## Installation
 
 You need to install apt install autoconf-archive for lovely
 extra macros if you want this to build on debian.
@@ -55,6 +82,3 @@ DEBUG levels (can be |ed):
 
 Note that stuff gets printed when DEBUG == 0 (or simply exists).
 For no debugging output, don't define it at all.
-
-NJB.
-
