@@ -6,7 +6,8 @@ This repo conatins both the DetectorBank and a NoteDetector.
 The NoteDetector comprises an OnsetDetector and a PitchTracker;
 however, the PitchTracker is currently not implemented.
 
-The full documentation can be found [here](https://keziah55.github.io/DetectorBank/).
+The full documentation, including [examples](https://keziah55.github.io/DetectorBank/PythonExamples.html) 
+can be found [here](https://keziah55.github.io/DetectorBank/).
 
 ## Requirements
 
