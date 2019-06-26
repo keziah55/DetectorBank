@@ -9,6 +9,9 @@ however, the PitchTracker is currently not implemented.
 The full documentation, including [examples](https://keziah55.github.io/DetectorBank/PythonExamples.html) 
 can be found [here](https://keziah55.github.io/DetectorBank/).
 
+Materials relating to the development of the DetectorBank and the 
+OnsetDetector can be found [here](https://github.com/keziah55/ExtraThesisMaterial).
+
 ## Requirements
 
 On a Debian system, the following packages should be installed:
