@@ -12,6 +12,11 @@ can be found [here](https://keziah55.github.io/DetectorBank/).
 Materials relating to the development of the DetectorBank and the 
 OnsetDetector can be found [here](https://github.com/keziah55/ExtraThesisMaterial).
 
+This software is released under the terms of the 
+[GNU General Public License](https://www.gnu.org/licenses/gpl-3.0.en.html);
+if you wish to use it under different terms, get in touch and we'll sort 
+something out.
+
 ## Requirements
 
 On a Debian system, the following packages should be installed:
