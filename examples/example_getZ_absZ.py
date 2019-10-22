@@ -18,7 +18,7 @@ f = np.array(list(440 * 2**(k/12) for k in range(-12, 13)))
 # minimum bandwidth detectors
 bandwidth = np.zeros(len(f))
 # make 2D array of frequencies and bandwidths
-det_char = np.array(list(zip(f, bandwidth)))
+det_char = np.stack((f, bandwidth), axis=1)
 
 # detectorbank  parameters
 method = DetectorBank.runge_kutta

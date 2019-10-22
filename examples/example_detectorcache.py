@@ -18,7 +18,7 @@ bandwidth = np.zeros(len(f))
 # change the bandwidth of the last detector
 bandwidth[2] = 7
 # make 2D array of frequencies and bandwidths
-det_char = np.array(list(zip(f, bandwidth)))
+det_char = np.stack((f, bandwidth), axis=1)
          
 # detectorbank  parameters
 method = DetectorBank.runge_kutta

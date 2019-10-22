@@ -4,7 +4,7 @@ from detectorbank import DetectorBank
 # array of frequencies (corresponding to 88 key piano)
 f = np.array(list(440 * 2**(k/12) for k in range(-48, 40)))
 bandwidth = np.zeros(len(f))
-det_char = np.array(list(zip(f, bandwidth)))
+det_char = np.stack((f, bandwidth), axis=1)
 
 # detectorbank  parameters
 sr = 48000
