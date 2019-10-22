@@ -44,7 +44,7 @@ void AbstractDetector::processAudio(discriminator_t* target,
     const discriminator_t totalScale {scale * aScale};
 
     for (std::size_t i{0}; i < count; i++) {
-        *target *= totalScale;
+        *target *= aScale; // totalScale;
         
         const auto re { std::real(*target) };
         const auto im { std::imag(*target) };
