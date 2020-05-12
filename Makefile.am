@@ -12,6 +12,16 @@ ACLOCAL_AMFLAGS = -I m4
 # PKG_INSTALLDIR in configure.ac.
 pkgconfig_DATA = detectorbank.pc
 
+# We use README.md, but a README file is required by automake
+PANDOC = $$(which pandoc)
+BUILT_SOURCES = README
+README: README.md
+	if command -v  $(PANDOC) ; then \
+		$(PANDOC) -f markdown -t plain --wrap=none $< -o $(top_srcdir)/$@ ; \
+	else \
+		echo "See $<" > $(top_srcdir)/$@ ; \
+	fi
+
 # For API versioning use:
 # pkgconfig_DATA = detectorbank-$(API_VERSION).pc
 
@@ -49,6 +59,7 @@ $(DOXYGENLS): $(DOCSTAMP) $(DOXYSRCSTAMP)
 	( cd $(DX_DOCDIR) && find html -type f | paste -s -d ' ' >> ../$(DOXYGENLS) )
 
 MOSTLYCLEANFILES = $(DX_CLEANFILES) $(DOXYGENLS) $(DOXYSRCSTAMP)
+CLEANFILES = $(top_srcdir)/README
 
 .PHONY: install-docs uninstall-docs
 
