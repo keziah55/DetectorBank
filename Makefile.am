@@ -7,19 +7,19 @@ EXTRA_DIST =  detectorbank.i python_docstrings.i numpy.i \
               examples
 
 ACLOCAL_AMFLAGS = -I m4
+BUILT_SOURCES = README
 
 # Install the pkg-config file; the directory is set using
 # PKG_INSTALLDIR in configure.ac.
 pkgconfig_DATA = detectorbank.pc
 
 # We use README.md, but a README file is required by automake
-PANDOC = $$(which pandoc)
-BUILT_SOURCES = README
+PANDOC = pandoc
 README: README.md
 	if command -v  $(PANDOC) ; then \
-		$(PANDOC) -f markdown -t plain --wrap=none $< -o $(top_srcdir)/$@ ; \
+		$(PANDOC) -f markdown -t plain --wrap=none $< -o $@ ; \
 	else \
-		echo "See $<" > $(top_srcdir)/$@ ; \
+		echo "See $<" > $@ ; \
 	fi
 
 # For API versioning use:

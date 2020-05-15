@@ -62,6 +62,10 @@ Optionally build and run the unit tests
 The results of the checks are written in test/test-suite.log
 
         sudo make install
+
+On some platforms you may have to refresh the shared object cache:
+
+        sudo ldconfig
         
 Perhaps also test that the library's been installed properly by asking
 for the compilation flags
