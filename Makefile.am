@@ -6,7 +6,7 @@ EXTRA_DIST =  detectorbank.i python_docstrings.i numpy.i \
               setup.py.in Doxyfile.in detectorbank.pc.in \
               examples
 
-ACLOCAL_AMFLAGS = -I m4
+ACLOCAL_AMFLAGS = ${ACLOCAL_FLAGS} -I m4
 BUILT_SOURCES = README
 
 # Install the pkg-config file; the directory is set using
@@ -93,6 +93,7 @@ stamp-py: stamp-swig
 	@echo timestamp for Python bindings > $@
 
 all-local: stamp-py
+
 
 # installation requires SWIG to be complete.
 install-exec-local: stamp-py
