@@ -19,7 +19,7 @@ class DetectorbankTest(unittest.TestCase):
     # See https://docs.python.org/3/library/unittest.html
     
     def test_001_import(self):
-        """Import DetectorBank extension"""
+        """Import detectorbank extension"""
 
         try:
             globals()['DB'] = __import__('detectorbank')
@@ -66,9 +66,9 @@ class DetectorbankTest(unittest.TestCase):
         new_bandwidth = 1
         nd = DB.NoteDetector(self.sr, self.buf, self.freqs, self.edo, new_bandwidth)
         expected = (new_bandwidth,
-                    NoteDetector.default_features,
-                    NoteDetector.default_damping,
-                    NoteDetector.default_gain)
+                    DB.NoteDetector.default_features,
+                    DB.NoteDetector.default_damping,
+                    DB.NoteDetector.default_gain)
         result   = (nd.get_bandwidth(),
                     nd.get_features(),
                     nd.get_damping(),
@@ -127,14 +127,13 @@ class DetectorbankTest(unittest.TestCase):
         correction_limit = 0.01
         
         msg = 'Original eccentricity {} corrected to {} (limit is {})'.format(
-            eccentricity[DB.amp_unnormalized],
-            eccentricity[DB.amp_normalized],
+            eccentricity[DB.DetectorBank.amp_unnormalized],
+            eccentricity[DB.DetectorBank.amp_normalized],
             correction_limit)
         
-        self.assertLess(eccentricity[DetectorBank.amp_normalized],
+        self.assertLess(eccentricity[DB.DetectorBank.amp_normalized],
                         correction_limit,
                         msg)
-        print("Cleaing up")
         
     def tearDown(self):
         pass
