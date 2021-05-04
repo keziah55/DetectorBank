@@ -2,7 +2,6 @@ import unittest
 import tap
 import os
 import numpy as np
-import detectorbank
 
 class DetectorbankTest(unittest.TestCase):
 
@@ -20,15 +19,15 @@ class DetectorbankTest(unittest.TestCase):
     # See https://docs.python.org/3/library/unittest.html
     
     def test_001_import(self):
-        """Import detectorbank extension"""
+        """Import DetectorBank extension"""
 
         try:
-            #import detectorbank
+            globals()['DB'] = __import__('detectorbank')
             success=True
             comment=''
         except:
             success=False
-            comment="Couldn't load detectorbank with\n\tPYTHONPATH=" + \
+            comment="Couldn't load DetectorBank extension with\n\tPYTHONPATH=" + \
                 os.environ['PYTHONPATH'] + '\n\tLD_LIBRARY_PATH=' + \
                 os.environ['LD_LIBRARY_PATH']
         
@@ -36,7 +35,9 @@ class DetectorbankTest(unittest.TestCase):
 
     def test_002_absZ(self):
         """Check multi-threaded absZ works"""
+        global Py_absZtest
         import Py_absZtest
+        
         comment = ''
         _, err = Py_absZtest.absZ_test(48000)
         comment = 'multithreaded absZ error = {}'.format(err)
@@ -45,14 +46,14 @@ class DetectorbankTest(unittest.TestCase):
     
     def test_003_notedetector_args(self):
         """Create a Note Detector with default arguments"""
-        from detectorbank import NoteDetector, NDOptArgs
                 
         success = True
-        nd = NoteDetector(self.sr, self.buf, self.freqs, self.edo)
-        expected = (NoteDetector.default_bandwidth,
-                    NoteDetector.default_features,
-                    NoteDetector.default_damping,
-                    NoteDetector.default_gain)
+        nd = DB.NoteDetector(self.sr, self.buf, self.freqs, self.edo)
+        expected = (
+                    DB.NoteDetector.default_bandwidth,
+                    DB.NoteDetector.default_features,
+                    DB.NoteDetector.default_damping,
+                    DB.NoteDetector.default_gain)
         result   = (nd.get_bandwidth(),
                     nd.get_features(),
                     nd.get_damping(),
@@ -62,9 +63,8 @@ class DetectorbankTest(unittest.TestCase):
         
     def test_004_notedetector_args(self):
         """Supply one positional default argument"""
-        from detectorbank import NoteDetector
         new_bandwidth = 1
-        nd = NoteDetector(self.sr, self.buf, self.freqs, self.edo, new_bandwidth)
+        nd = DB.NoteDetector(self.sr, self.buf, self.freqs, self.edo, new_bandwidth)
         expected = (new_bandwidth,
                     NoteDetector.default_features,
                     NoteDetector.default_damping,
@@ -78,14 +78,12 @@ class DetectorbankTest(unittest.TestCase):
         
     def test_005_notedetector_args(self):
         """Create a Note Detector with custom damping and default_gain: c++ method"""
-        from detectorbank import NoteDetector, NDOptArgs
-        
         new_damping = 0.0003
         new_gain    = 35.0
-        nd = NoteDetector(self.sr, self.buf, self.freqs, self.edo, 
-                          detectorbank.NDOptArgs().damping(new_damping).gain(new_gain))
-        expected = (NoteDetector.default_bandwidth,
-                    NoteDetector.default_features,
+        nd = DB.NoteDetector(self.sr, self.buf, self.freqs, self.edo, 
+                          DB.NDOptArgs().damping(new_damping).gain(new_gain))
+        expected = (DB.NoteDetector.default_bandwidth,
+                    DB.NoteDetector.default_features,
                     new_damping, new_gain)
         result   = (nd.get_bandwidth(),
                     nd.get_features(),
@@ -96,14 +94,12 @@ class DetectorbankTest(unittest.TestCase):
 
     def test_006_notedetector_args(self):
         """Create a Note Detector with custom damping and default_gain: kwargs method"""
-        from detectorbank import NoteDetector
-        
         new_damping = 0.00025
         new_gain    = 75.0
-        nd = NoteDetector(self.sr, self.buf, self.freqs, self.edo,
+        nd = DB.NoteDetector(self.sr, self.buf, self.freqs, self.edo,
                           damping=new_damping, gain=new_gain)
-        expected = (NoteDetector.default_bandwidth,
-                    NoteDetector.default_features,
+        expected = (DB.NoteDetector.default_bandwidth,
+                    DB.NoteDetector.default_features,
                     new_damping, new_gain)
         result   = (nd.get_bandwidth(),
                     nd.get_features(),
@@ -114,20 +110,16 @@ class DetectorbankTest(unittest.TestCase):
     
     def test_007_notedetector_args(self):
         """Attept to construct a Note Detector mixing positional and keyword optional arguments"""
-        from detectorbank import NoteDetector
         with self.assertRaises(TypeError,
                                msg='Illegal mixture of positional and keyword opt args should thow a TypeError') :
-            NoteDetector(self.sr, self.buf, self.freqs, self.edo,
-                         0, gain=37)
+            DB.NoteDetector(self.sr, self.buf, self.freqs, self.edo, 0, gain=37)
         with self.assertRaises(TypeError,
                                msg='Non-existant keyword argument should thow a TypeError') :
-            NoteDetector(self.sr, self.buf, self.freqs, self.edo,
-                         0, gin=37)
+            DB.NoteDetector(self.sr, self.buf, self.freqs, self.edo, 0, gin=37)
     
     def test_008_amplitude_normalisation(self):
         """Make sure amplitude normalisation produces acceptable eccentricity (using f0=5Hz)"""
         from test_amp_norm import test_eccentricity
-        from detectorbank import DetectorBank
         
         # Supply the frequency at which the test is carried out
         eccentricity = test_eccentricity(5)
@@ -135,13 +127,14 @@ class DetectorbankTest(unittest.TestCase):
         correction_limit = 0.01
         
         msg = 'Original eccentricity {} corrected to {} (limit is {})'.format(
-            eccentricity[DetectorBank.amp_unnormalized],
-            eccentricity[DetectorBank.amp_normalized],
+            eccentricity[DB.amp_unnormalized],
+            eccentricity[DB.amp_normalized],
             correction_limit)
         
         self.assertLess(eccentricity[DetectorBank.amp_normalized],
                         correction_limit,
                         msg)
+        print("Cleaing up")
         
     def tearDown(self):
         pass
