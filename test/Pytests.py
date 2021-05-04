@@ -94,7 +94,7 @@ class DetectorbankTest(unittest.TestCase):
         self.assertEqual(result, expected,
                          msg='Failed to set features/damping/gain with NDOptArgs instance\n')
 
-    def test_005_notedetector_args(self):
+    def test_006_notedetector_args(self):
         """Create a Note Detector with custom damping and default_gain: kwargs method"""
         from detectorbank import NoteDetector
         
@@ -112,7 +112,7 @@ class DetectorbankTest(unittest.TestCase):
         self.assertEqual(result, expected,
                          msg='Failed to set features/damping/gain with kwargs\n')
     
-    def test_006_notedetector_args(self):
+    def test_007_notedetector_args(self):
         """Attept to construct a Note Detector mixing positional and keyword optional arguments"""
         from detectorbank import NoteDetector
         with self.assertRaises(TypeError,
@@ -124,7 +124,7 @@ class DetectorbankTest(unittest.TestCase):
             NoteDetector(self.sr, self.buf, self.freqs, self.edo,
                          0, gin=37)
     
-    def test_007_amplitude_normalisation(self):
+    def test_008_amplitude_normalisation(self):
         """Make sure amplitude normalisation produces acceptable eccentricity (using f0=5Hz)"""
         from test_amp_norm import test_eccentricity
         from detectorbank import DetectorBank
