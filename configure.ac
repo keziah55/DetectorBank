@@ -14,7 +14,7 @@ AC_CONFIG_MACRO_DIRS([m4])
 AC_CONFIG_AUX_DIR([build-aux])
 AM_INIT_AUTOMAKE([-Wall -Werror])
 AC_PROG_CXX
-AX_CXX_COMPILE_STDCXX_11([noext], [mandatory])
+#AX_CXX_COMPILE_STDCXX_11([noext], [mandatory])
 AC_CONFIG_HEADERS([config.h])
 
 # Doxyfile and the python build script need massaging
@@ -62,7 +62,7 @@ PKG_INSTALLDIR
 # Don't chance the first argument. It gets used in setup.py.in.
 AX_PKG_CHECK_MODULES([FFTW], [fftw3f], [],
                      [],
-                     [AC_MSG_ERROR([Single-precision FFTW3 library not found.])])
+                     AC_MSG_ERROR([Single-precision FFTW3 library not found.]))
 
 # Conditionally deal with SWIG bindings (yes by default)
 AC_ARG_WITH([swig],
@@ -73,7 +73,7 @@ AC_ARG_WITH([swig],
 AS_IF([test "x$with_swig" != "xno"],
       [AX_PKG_SWIG([3.0],
        ,
-       [AC_MSG_ERROR([Building/installing python binings requires SWIG 3.0.])])
+       AC_MSG_ERROR([Building/installing python binings requires SWIG 3.0.]))
       ])
 
 AS_IF([test "x$with_swig" = "xyes"],

@@ -34,6 +34,8 @@ public:
     static constexpr parameter_t default_damping {0.0001};
     /*! Default detector gain */
     static constexpr parameter_t default_gain {50};
+    /* TODO Document... */
+    static const std::string default_path;
     
     /*! Construct a note detector maybe using some default properties
      *  \param sr Sample rate of input audio
@@ -47,6 +49,7 @@ public:
      *  Default is runge_kutta | freq_unnormalized | amp_normalized
      *  \param damping Detector damping. Default is 0.0001
      *  \param gain Detector gain. Default is 25.
+     *  TODO: document "path"
      */
     NoteDetector(const parameter_t sr,
                  const inputSample_t* inputBuffer,
@@ -58,7 +61,7 @@ public:
                  const int features = default_features,
                  const parameter_t damping = default_damping,
                  const parameter_t gain = default_gain,
-                 const std::string path="log");
+                 const std::string path=default_path);
 
     /*! Construct a note detector maybe using named properties
      * 
@@ -75,6 +78,7 @@ public:
      *  \param freqs Array of frequencies to look for
      *  \param freqsSize Size of frequency array
      *  \param edo Number of divisons per octave
+     *  \param args "Keyword argument" structure
      */
     NoteDetector(const parameter_t sr,
                  const inputSample_t* inputBuffer,
@@ -159,13 +163,15 @@ struct NDOptArgs
 {
     parameter_t nd_bandwidth { NoteDetector::default_bandwidth};
     int         nd_features  { NoteDetector::default_features };
-    parameter_t nd_damping   { NoteDetector::default_damping  };
-    parameter_t nd_gain      { NoteDetector::default_gain     };
+    parameter_t nd_damping   { NoteDetector::default_damping };
+    parameter_t nd_gain      { NoteDetector::default_gain };
+    std::string nd_path         { NoteDetector::default_path };
 
     NDOptArgs& bandwidth(parameter_t b)  { nd_bandwidth = b; return *this; }
     NDOptArgs& features(int f)           { nd_features  = f; return *this; }
     NDOptArgs& damping(parameter_t d)    { nd_damping   = d; return *this; }
     NDOptArgs& gain(parameter_t g)       { nd_gain      = g; return *this; }
+    NDOptArgs& path(std::string p)          { nd_path = p; return *this; }
 };
 
 #endif

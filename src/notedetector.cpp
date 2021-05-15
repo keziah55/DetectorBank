@@ -12,6 +12,8 @@
 #include "notedetector.h"
 #include "detectorbank.h"
 
+const std::string NoteDetector::default_path {"log"};
+
 NoteDetector::NoteDetector(const parameter_t sr,
                            const inputSample_t* inputBuffer,
                            const std::size_t inputBufferSize,
@@ -34,6 +36,7 @@ NoteDetector::NoteDetector(const parameter_t sr,
     , gain(gain)
     , threadPool(new ThreadPool(0)) // default number of threads
 {
+std::cout << "sr = " << sr << " freqsize = " << freqsSize << " edo = " << edo << " bandwidth = " << bandwidth << " features = " << features << " damping = " << damping << " gain = " << gain << std::endl;
     // zero pad the beginning of the audio
     const std::size_t offset {static_cast<std::size_t>(sr)/4};
     inputBufferPadSize = inputBufferSize+offset;
@@ -61,14 +64,16 @@ NoteDetector::NoteDetector(const parameter_t sr,
                            const std::size_t inputBufferSize,
                            const parameter_t* freqs,
                            const std::size_t freqsSize,
-                           const std::size_t bandSize,
+                           const std::size_t edo,
                            const NDOptArgs& args)
     : NoteDetector(sr, inputBuffer, inputBufferSize,
-                   freqs, freqsSize, bandSize,
+                   freqs, freqsSize, edo,
                    args.nd_bandwidth,
                    args.nd_features,
                    args.nd_damping,
-                   args.nd_gain)
+                   args.nd_gain,
+                   args.nd_path
+                  )
 {}
         
 
