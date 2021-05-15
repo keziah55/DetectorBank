@@ -73,11 +73,13 @@ AC_ARG_WITH([swig],
 AS_IF([test "x$with_swig" != "xno"],
       [AX_PKG_SWIG([3.0],
        ,
-       AC_MSG_ERROR([Building/installing python binings requires SWIG 3.0.]))
+       AC_MSG_ERROR([Building/installing python binings requires SWIG >= 3.0.]))
       ])
 
 AS_IF([test "x$with_swig" = "xyes"],
-      ,
+      [
+      AC_MSG_NOTICE([Building python bindings with SWIG])
+      ],
       [AC_MSG_NOTICE([SWIG interface generation of python bindings is disabled])])
 
 AM_CONDITIONAL([DO_SWIG_BINDINGS], [test "x$with_swig" = "xyes"])         
