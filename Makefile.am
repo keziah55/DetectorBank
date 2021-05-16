@@ -75,28 +75,26 @@ uninstall-docs-local:
 
 
 if DO_SWIG_BINDINGS
-SWIGINPUTS = documentation.i $(srcdir)/detectorbank.i
-SWIGOUTPUS = detectorbank_wrap.cpp detectorbank.py
+SWIGINPUTS = documentation.i detectorbank.i
+SWIGOUTPUTS = detectorbank_wrap.cpp detectorbank.py
 SWIGFILES = $(SWIGINPUTS) $(SWIGOUTPUTS)
-MOSTLYCLEANFILES += documentation.i $(SWIGOUTPUTS) stamp-py stamp-swig
+MOSTLYCLEANFILES += documentation.i $(SWIGOUTPUTS) stamp-py stamp-lib
 
 documentation.i: $(DOCSTAMP)
 	$(PYTHON) setup.py docs
 
-stamp-swig: $(SWIGFILES)
+all-local: $(SWIGOUTPUTS)
+
+# If stamp-lib (touched by library build) doesn't exist yet, don't try to make it
+stamp-lib:
+
+# All of the swig targets get build with a sinlge command,
+# so this is a grouped target.
+$(SWIGOUTPUTS) &: $(SWIGINPUTS) stamp-lib
 	$(PYTHON) setup.py buildDB
-	@echo timestamp for Python bindings > $@
-
-# Timestamp file must be newer than any of the files built by
-# the setup script, and the shared object built from the C++ sources
-stamp-py: stamp-swig
-	@echo timestamp for Python bindings > $@
-
-all-local: stamp-py
-
 
 # installation requires SWIG to be complete.
-install-exec-local: stamp-py
+install-exec-local: $(SWIGOUTPUTS)
 	$(PYTHON) setup.py install
 
 clean-local:
