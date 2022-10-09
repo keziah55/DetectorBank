@@ -19,9 +19,12 @@ something out.
 
 ## Requirements
 
+### Debian:
+
 On a Debian system, the following packages should be installed:
 
 * python3-dev
+* python3-numpy
 * swig (to build python3 bindings)
 * build-essential
 * autoconf-archive
@@ -35,8 +38,11 @@ On a Debian system, the following packages should be installed:
 * texlive-latex-base (for the documentation)
 * python3-tap (for the unit tests)
 
-`apt install python3-dev swig build-essential autoconf-archive libtool libcereal-dev librapidxml-dev libfftw3-dev doxygen python3 graphviz texlive-latex-base python3-tap`
+`apt install python3-dev python3-numpy swig build-essential autoconf-archive libtool libcereal-dev librapidxml-dev libfftw3-dev doxygen python3 graphviz texlive-latex-base python3-tap`
 
+### Fedora
+
+`dnf install make automake gcc gcc-c++ kernel-devel python3-devel python3-numpy swig autoconf-archive libtool fftw-devel rapidxml-devel cereal-devel doxygen python3 graphviz texlive-scheme-basic`
 
 ## Installation
 

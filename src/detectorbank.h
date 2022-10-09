@@ -199,6 +199,13 @@ public:
      */
     void saveProfile(std::string name);
     
+    friend class cereal::access;
+    /*! Write the relevant properties of the detector bank to an archive
+     * \param archive The archive to which properties should be written */
+    template<class Archive> void save(Archive& archive) const;
+    /*! Write the relevant properties of the detector bank to an archive
+     * \param archive The archive from which properties should be read */
+    template<class Archive> void load(Archive& archive);
         
 protected:    
     /*! Apply a gain to the inputBuffer
@@ -259,14 +266,6 @@ protected:
      */
     const std::string featuresToString(void) const;
 
-    friend class cereal::access;
-    /*! Write the relevant properties of the detector bank to an archive
-     * \param archive The archive to which properties should be written */
-    template<class Archive> void save(Archive& archive) const;
-    /*! Write the relevant properties of the detector bank to an archive
-     * \param archive The archive from which properties should be read */
-    template<class Archive> void load(Archive& archive);
-    
     /*! Detectors to be run by this detector bank */
     std::vector<std::unique_ptr<AbstractDetector>> detectors;
     std::size_t inBufSize;        /*!< Size of the current audio input buffer */
