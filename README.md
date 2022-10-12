@@ -33,7 +33,6 @@ On a Debian system, the following packages should be installed:
 * doxygen (for the documentation)
 * python3 (for the documentation as well as the SWIG bindings)
 * graphviz (for enhanced documentation)
-* texlive-latex-base (for the documentation)
 * python3-tap (for the unit tests)
 
 ### Debian/Ubuntu
