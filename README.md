@@ -37,11 +37,11 @@ On a Debian system, the following packages should be installed:
 
 ### Debian/Ubuntu
 
-`apt install python3-dev python3-numpy swig build-essential autoconf-archive pkg-config libtool libcereal-dev librapidxml-dev libfftw3-dev doxygen python3 graphviz texlive-latex-base python3-tap`
+`apt install python3-dev python3-numpy swig build-essential autoconf-archive pkg-config libtool libcereal-dev librapidxml-dev libfftw3-dev doxygen python3 graphviz python3-tap`
 
 ### Fedora
 
-`dnf install make automake gcc gcc-c++ kernel-devel python3-devel python3-numpy swig autoconf-archive libtool fftw-devel rapidxml-devel cereal-devel doxygen python3 graphviz texlive-scheme-basic`
+`dnf install make automake gcc gcc-c++ kernel-devel python3-devel python3-numpy swig autoconf-archive libtool fftw-devel rapidxml-devel cereal-devel doxygen python3 graphviz`
 
 ## Installation
 
