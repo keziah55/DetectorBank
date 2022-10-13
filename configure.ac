@@ -43,10 +43,7 @@ AC_CHECK_PROGS([DOT], [dot])
 if test -z "$DOT"; then
    AC_MSG_ERROR([Doxygen needs dot, please install dot first.])
 fi
-AC_CHECK_PROGS([PDFLATEX], [pdflatex])
-if test -z "$PDFLATEX"; then
-   AC_MSG_ERROR([Documentation needs pdflatex.])
-fi
+
 
 # Python is needed to build some C++ source files, even if SWIG
 # bindings aren't required
