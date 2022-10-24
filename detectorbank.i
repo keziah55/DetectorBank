@@ -8,9 +8,7 @@
 //#include "slidingbuffer.h"
 #include "detectorbank.h"
 #include "detectorcache.h"
-#include "onsetdetector.h"
 #include "detectortypes.h"
-#include "notedetector.h"
 #include "frequencyshifter.h"
 
 // Make SWIG happy with std::size_t and size_t being the same
@@ -63,8 +61,8 @@ import_array();
 
 %extend DetectorBank {
     %pythoncode %{
-       ## NB this is pasted directly to the NoteDetector bit of this file ##
-       ## If changing anything, make sure both bits are changed ##
+       ## NB this is pasted directly to the notedetector.i ##
+       ## If changing anything, probably want to apply changes to both ##
        def _checkBufferType(self, buf):
             # Check that the data type is float32
             # Also, flatten arrays of more than 1 dimension
@@ -110,8 +108,8 @@ import_array();
     %}
 };
 
-## NB this is pasted directly to the NoteDetector bit of this file ##
-## If changing anything, make sure both bits are changed ##
+## NB this is pasted directly to the notedetector.i ##
+## If changing anything, probably want to apply changes to both ##
 %pythonprepend DetectorBank::DetectorBank %{
     # Make sure all the DetectorBank arguments coming from Python are the
     # right type etc.
@@ -336,22 +334,6 @@ import_array();
     DetectorCache.__getitem__ = _DetectorCache___getitem__
 %}
 
-
-// %ignore operator<<;
-// %include "onsetdetector.h"
-// namespace std {
-//     %template(OnsetList) deque<Onset>;
-//     %template(FreqValues) vector<onset_freq_t>;
-// }
-//
-// %extend Onset {
-//     const std::string __repr__() {
-//         std::ostringstream ss;
-//         ss << *($self);
-//         return ss.str();
-//     }
-// }
-
 %extend DetectorBank {
     /**
      * The C++ "native" version takes only two pointers
@@ -385,109 +367,3 @@ import_array();
                                            const std::size_t shiftedSignalSize)};
 
 %include "frequencyshifter.h"
-
-
-%include "onsetdetector.h"
-
-
-%apply (float* IN_ARRAY1, int DIM1) {(const audioSample_t* inputBuffer,
-                                      const std::size_t inputBufferSize)};
-%apply (double* IN_ARRAY1, int DIM1) {(const parameter_t* freqs,
-                                       const std::size_t freqsSize)};
-
-%extend NoteDetector {
-    %pythoncode %{
-        SWIG__init__ = __init__
-        def __init__(self, *args, **kwargs):
-            if len(kwargs) != 0:
-                if len(args) != 4:
-                    raise TypeError('NoteDetector cannot be instantiated with a mixture of '
-                                    'default positional and keyword arguments because of C++ '
-                                    'binding limitations')
-                optargs = NDOptArgs()
-                for arg in kwargs:
-                    set_method = getattr(optargs, arg, None)
-                    if set_method:
-                        set_method(kwargs[arg])
-                    else:
-                        raise TypeError('Unable to pass {0}={1} because {0} is not a valid '
-                                        'paramter name'.format(arg, kwargs[arg]))
-                args += (optargs,)
-            NoteDetector.SWIG__init__(self, *args)
-            
-        ## NB this is copied directly from the DetectorBank bit of this file ##
-        ## If changing anything, make sure both bits are changed ##
-        def _checkBufferType(self, buf):
-            # Check that the data type is float32
-            # Also, flatten arrays of more than 1 dimension
-
-            from numpy import array, dtype, mean
-
-            # Check data type
-            if buf.dtype is not dtype('float32'):
-                if buf.dtype is dtype('int16') :
-                    buf = array(buf, dtype=dtype('float32'))/(2**15)
-                else:
-                    buf = array(buf, dtype=dtype('float32'))
-
-            # Check number of dimensions
-            if buf.ndim > 1 :
-                buf = mean(buf, axis=1)
-
-            del array, dtype, mean
-
-            return buf
-    %}
-};
-
-## NB this is copied directly from the DetectorBank bit of this file ##
-## If changing anything, make sure both bits are changed ##
-%pythonprepend NoteDetector::NoteDetector %{
-    # make audio mono, if required
-    args = list(args)
-    # The c++ code only deals with mono audio but we'd like to deal with
-    # more channels on demand
-    # Fortunately, the input buffer is the second argument in all forms
-    # of the constructor, so no need to check len(args) here.
-    # This also makes sure the data type is float32
-    b = self._checkBufferType(args[1])
-
-    if b is not args[1]:
-        args[1] = b
-        
-    # Keep a local copy so it doesn't get garbage-collected
-    self._ibuf = args[1]
-%}
-
-namespace std {
-    %template(vector_size_t) vector<size_t>;
-    %template(OnsetDict) map<size_t, vector<size_t>>;
-}
-
-
-%pythoncode %{
-    def _OnsetDict__str__(self):
-        # manual implementation of __str__, so that it prints like a regular
-        # python dictionary, rather than
-        # "<detectorbank.OnsetDict; proxy of <Swig Object of type 'std::map< ]
-        # size_t,std::vector< int,std::allocator< int > > > *' at 0x7f0d99c3bde0> >"
-        
-        out = '{'
-        keys = self.keys()
-        
-        # if the dictionary contains stuff, print it out
-        if keys:
-            for k in keys[:-1]:
-                out += '{}: {}, '.format(k, self.__getitem__(k), end='')
-            out += '{}: {}'.format(keys[-1], self.__getitem__(keys[-1]), end='')
-            
-        out += '}'
-
-        return out
-
-    OnsetDict.__str__ = _OnsetDict__str__
-%}
-
-
-%include "notedetector.h"
-
