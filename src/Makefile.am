@@ -5,9 +5,6 @@ libdetectorbank_la_SOURCES = detectorbank.cpp detectortypes.h detectorbank.h \
                              frequencyshifter.cpp frequencyshifter.h \
                              slidingbuffer.h \
                              detectorcache.cpp detectorcache.h \
-                             onsetdetector.cpp onsetdetector.h \
-                             notedetector.cpp notedetector.h \
-                             eventdetector.cpp eventdetector.h \
                              thread_pool.cpp thread_pool.h \
                              profilemanager.cpp profilemanager.h \
                              uniqueallocator.h \
