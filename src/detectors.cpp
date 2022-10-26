@@ -279,7 +279,7 @@ bool AbstractDetector::amplitudeNormalize(const parameter_t forcingAmplitude)
 
     // (complex) amplitude normalisation factor
     aScale = 1. / results[where];
-    
+
     // number of oscillations over which to find eccentricity
     const std::size_t nOsc {5};
     // number of samples in nOsc oscillations

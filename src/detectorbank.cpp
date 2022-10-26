@@ -267,7 +267,7 @@ void DetectorBank::makeDetectors(const std::size_t numDetectors,
         const parameter_t f_in = dbComponents.empty() ? 0 : dbComponents[i].f_in;
         const parameter_t det_bw = dbComponents.empty() ? 0 : dbComponents[i].bandwidth;
 
-        switch (solver) {
+        switch (solver & method_mask) {
         case Features::central_difference:
             detector = new CDDetector(f, mu, d, sr, det_bw, gain);
             break;
@@ -278,8 +278,12 @@ void DetectorBank::makeDetectors(const std::size_t numDetectors,
             detector = nullptr;
         }
 
+        // Perform nomalizations for frequencies and amplitudes.
+        // Currently there's only one of each. Additional types and range
+        // masks should be created in detectorbank.h
+        
         if (!dbComponents.empty()) {
-            switch (freq_normalization) {
+            switch (freq_normalization & frequency_normalization_mask) {
                 case Features::search_normalized:
                     // Make three test tones and iterate by best-fit
                     // parabola search to find the best response.
@@ -288,7 +292,7 @@ void DetectorBank::makeDetectors(const std::size_t numDetectors,
                     detector->searchNormalize(0.92, 1.08, 3.0, gain);
                     break;
             }
-            switch (amp_normalization) {
+            switch (amp_normalization & amplitude_normalisation_mask) {
                 case Features::amp_normalized:
                     detector->amplitudeNormalize(gain);
                     break;
