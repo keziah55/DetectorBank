@@ -2,7 +2,7 @@
 #include <string>
 
 #include <detectorbank.h>
-#include <notedetector.h>
+// #include <notedetector.h>  // Now resides in separate repo
 
 #include <iostream>
 
