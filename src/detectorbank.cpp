@@ -460,7 +460,7 @@ const std::map<int, std::string> DetectorBank::featuresToStringMap {
         {{runge_kutta},        {"Runge-Kutta method"}},
         {{freq_unnormalized},  {"Frequency unnormalized"}},
         {{search_normalized},  {"Search-normalized"}},
-        {{amp_unnormalized},   {"Ampltiude unnormalized"}},
+        {{amp_unnormalized},   {"Amplitude unnormalized"}},
         {{amp_normalized},     {"Amplitude normalized"}}
 };
 
