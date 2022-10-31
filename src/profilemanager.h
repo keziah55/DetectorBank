@@ -5,6 +5,7 @@
 #define _PROFILEMANAGER_H_
 
 #include <string>
+#include <list>
 
 #include "rapidxml/rapidxml.hpp"
 #include "rapidxml/rapidxml_utils.hpp"
@@ -56,6 +57,12 @@ public:
      * \throw std::string Profile 'name' not found.
      */
     std::string getProfile(const std::string& name) const;
+
+    /*!
+     * Return list of existing profiles
+     * \return List of strings
+     */
+    std::list<std::string> profiles();
     
 protected:
     /*!
@@ -67,10 +74,10 @@ protected:
     void deep_copy_names_values(rapidxml::xml_node<>& in,
                                 rapidxml::xml_node<>& out,
                                 rapidxml::xml_document<>& mem);
-    std::string configPath;            /*!< Path of the configuration file */
-    rapidxml::file<>* configXML;       /*!< Known configurations */
-    rapidxml::xml_document<> profiles; /*!< XML doc of known configurations */
-    bool profilesModified;             /*!< Document tree has been modified */
+    std::string configPath;               /*!< Path of the configuration file */
+    rapidxml::file<>* configXML;          /*!< Known configurations */
+    rapidxml::xml_document<> profilesDoc; /*!< XML doc of known configurations */
+    bool profilesModified;                /*!< Document tree has been modified */
 };
 
 #endif

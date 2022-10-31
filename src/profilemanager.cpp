@@ -4,6 +4,7 @@
 #include <unistd.h>
 #include <cstring>
 #include <stdexcept>
+#include <list>
 
 #include <iostream>
 
@@ -45,10 +46,10 @@ ProfileManager::ProfileManager(std::string config)
     
     // Read the whole of the config file into a C string property
     configXML = new rapidxml::file<>(configPath.c_str());
-    profiles.parse<0>(configXML->data());
+    profilesDoc.parse<0>(configXML->data());
     
     //  Check the protocol
-    rapidxml::xml_node<> *root { profiles.first_node() };
+    rapidxml::xml_node<> *root { profilesDoc.first_node() };
     rapidxml::xml_node<> *node { root->first_node("protocol") };
     
 #   if DEBUG > 0
@@ -68,7 +69,7 @@ ProfileManager::~ProfileManager()
     if (profilesModified) {
         std::ofstream of(configPath);
         of << "<?xml version=\"1.0\" encoding=\"utf-8\"?>" << std::endl;
-        of << profiles;
+        of << profilesDoc;
     }
 
     delete configXML;
@@ -76,7 +77,7 @@ ProfileManager::~ProfileManager()
 
 rapidxml::xml_node<>* ProfileManager::exists(const std::string& name) const
 {
-    rapidxml::xml_node<> *root { profiles.first_node() };
+    rapidxml::xml_node<> *root { profilesDoc.first_node() };
     rapidxml::xml_node<> *node;    
     
     for (node = root->first_node("profile");
@@ -94,13 +95,16 @@ rapidxml::xml_node<>* ProfileManager::exists(const std::string& name) const
 void ProfileManager::saveProfile(const std::string& name,
                                  const std::string& profile)
 {
+    std::cout << "save profile " << name << std::endl;
+    std::cout << profile << std::endl;
+    std::cout << "\n\n\n";
     profilesModified = true;
 
     // root is the first (<hsj>) node of the existing profiles tree
-    rapidxml::xml_node<>* root { profiles.first_node() };
+    rapidxml::xml_node<>* root { profilesDoc.first_node() };
     
     // Remember the name of this profile
-    char* n = { profiles.allocate_string(name.c_str()) };
+    char* n = { profilesDoc.allocate_string(name.c_str()) };
     
     // Parse the new profile, remembering its contents
     rapidxml::xml_document<> newProfile;
@@ -121,15 +125,14 @@ void ProfileManager::saveProfile(const std::string& name,
     }
     
     // Copy the node (but not the enclosed names and values (!))
-    rapidxml::xml_node<>* content { profiles.clone_node(sourceNode) };
+    rapidxml::xml_node<>* content { profilesDoc.clone_node(sourceNode) };
     // Set its name attribute
-    content->append_attribute(profiles.allocate_attribute("name", n));
+    content->append_attribute(profilesDoc.allocate_attribute("name", n));
     // Sort the names and vaules out
-    deep_copy_names_values(*sourceNode, *content, profiles);
+    deep_copy_names_values(*sourceNode, *content, profilesDoc);
     
     // Add it to the xml tree
     root->append_node(content);
-    
 }
 
 std::string ProfileManager::getProfile(const std::string& name) const
@@ -141,6 +144,29 @@ std::string ProfileManager::getProfile(const std::string& name) const
         throw std::invalid_argument("Profile '" + name + "' not found.");
     os << *e; 
     return os.str();
+}
+
+std::list<std::string> ProfileManager::profiles()
+{
+    std::list<std::string> names;
+
+    // root is the first (<hsj>) node of the existing profiles tree
+    rapidxml::xml_node<>* root { profilesDoc.first_node() };
+
+    // first node of root is protocol, which we can ignore here
+    rapidxml::xml_node<>* child { root->first_node() };
+
+    // siblings of protocol are the profiles
+    rapidxml::xml_node<>* sibling = child->next_sibling();
+
+    // for (rapidxml::xml_node<>* sibling = child->next_sibling(); sibling != NULL; sibling->next_sibling()) {
+    while (sibling != NULL) {
+        rapidxml::xml_attribute<char>* att = sibling->first_attribute();
+        std::string value = att->value();
+        names.push_back(value);
+        sibling = sibling->next_sibling();
+    }
+    return names;
 }
 
 

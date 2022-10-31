@@ -15,6 +15,7 @@
 #include <map>
 #include <stdexcept>
 #include <ctime>
+#include <list>
 // For writing debugging files
 #if (DEBUG & 2)
 #   include <cstdio>
@@ -565,6 +566,11 @@ void DetectorBank::fromXML(std::string xml)
 void DetectorBank::saveProfile(std::string name)
 {
     profileManager.saveProfile(name, toXML());
+}
+
+std::list<std::string> DetectorBank::profiles()
+{
+    return profileManager.profiles();
 }
 
 template<class Archive> void DetectorBank::load(Archive& archive)

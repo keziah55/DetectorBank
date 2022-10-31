@@ -12,6 +12,7 @@
 #include <map>
 #include <thread>
 #include <mutex>
+#include <list>
 #include <condition_variable>
 #include <cereal/access.hpp>
 
@@ -198,6 +199,11 @@ public:
      * \param name The name of the profile
      */
     void saveProfile(std::string name);
+    /*!
+     * Return list of existing profiles
+     * \return List of strings
+     */
+    std::list<std::string> profiles();
     
     friend class cereal::access;
     /*! Write the relevant properties of the detector bank to an archive
@@ -206,7 +212,7 @@ public:
     /*! Write the relevant properties of the detector bank to an archive
      * \param archive The archive from which properties should be read */
     template<class Archive> void load(Archive& archive);
-        
+
 protected:    
     /*! Apply a gain to the inputBuffer
      * \param signal Signal to be amplified

@@ -26,6 +26,7 @@ typedef unsigned long int size_t;
 %include <std_except.i>
 %include <std_string.i>
 %include <std_map.i>
+%include <std_list.i>
 %include <typemaps.i>
 
 %init %{
@@ -37,6 +38,10 @@ import_array();
 %ignore DetectorBank::GetZ_params;
 %ignore DetectorBank::AbsZ_params;
 %ignore NoteDetector::Analyse_params;
+
+namespace std {
+  %template(liststr) list<string>;
+};
 
 %fragment("NumPy_Fragments");
 
