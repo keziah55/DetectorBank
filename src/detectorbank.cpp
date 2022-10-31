@@ -550,9 +550,14 @@ template<class Archive> void DetectorBank::save(Archive& archive) const
     archive.setNextName("Detectors");
     archive.startNode();
     for (cereal::size_type i{0}; i<numDetectors; i++) {
+
+        archive.setNextName("Detector");
+        archive.startNode();
         archive(cereal::make_nvp("w_in", dbComponents[i].f_in * 2.0*M_PI));
         archive(cereal::make_nvp("bw", dbComponents[i].bandwidth));
         detectors[i]->save(archive);
+        archive.finishNode();
+
     }
     archive.finishNode();
 

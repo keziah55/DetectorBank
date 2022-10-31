@@ -18,7 +18,7 @@
 #  include <iostream>
 #endif
 
-const char ProfileManager::protocol[] { "v2 19 Jan 2017" };
+const char ProfileManager::protocol[] { "v3 31 Oct 2022" };
 
 ProfileManager::ProfileManager(std::string config)
     : profilesModified(false)
