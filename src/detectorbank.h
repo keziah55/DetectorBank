@@ -222,7 +222,7 @@ public:
      * Return list of existing profiles
      * \return List of strings
      */
-    std::list<std::string> profiles();
+    static std::list<std::string> profiles();
     
     friend class cereal::access;
     /*! Write the relevant properties of the detector bank to an archive
