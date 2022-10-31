@@ -97,7 +97,7 @@ public:
     
     // ACCESS FUNCTIONS
     
-    /*! Find the speficied characteristic frequency for this detector
+    /*! Find the specficied characteristic frequency for this detector
      *  (post-modulation and -normalisation) 
      * \returns Characterisic frequency in rad/s
      */

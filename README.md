@@ -61,6 +61,11 @@ a new directory.
 Optionally build and run the unit tests
 
         make check
+        
+Note that to run a single test, you can look in `tests/Makefile.am` then supply a replacement for TESTS naming
+only those you wish to run, e.g.:
+
+        make check TESTS='Pytests'
 
 The results of the checks are written in test/test-suite.log
 

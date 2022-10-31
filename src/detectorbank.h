@@ -54,6 +54,25 @@ public:
         defaults            = runge_kutta | freq_unnormalized | amp_normalized
         
     };
+    
+    /*! Mask which selects possible numerical methods */
+    static constexpr int method_mask {
+        Features::central_difference |
+        Features::runge_kutta
+    };
+
+    /*! Mask which selects possible frequency normalizations */    
+    static constexpr int frequency_normalization_mask {
+        Features::freq_unnormalized |
+        Features::search_normalized
+    };
+
+    /*! Mask which selects possible amplitude normalizations */    
+    static constexpr int amplitude_normalisation_mask {
+        Features::amp_unnormalized |
+        Features::amp_normalized
+    };
+    
     /*!
      * Construct a DetectorBank from archived parameters
      * \param profile The name of the profile to read from the archive
