@@ -2,10 +2,6 @@
 
 C++/Python software to detect note events using Hopf Bifurcations.
 
-This repo conatins both the DetectorBank and a NoteDetector.
-The NoteDetector comprises an OnsetDetector and a PitchTracker;
-however, the PitchTracker is currently not implemented.
-
 The full documentation, including [examples](https://keziah55.github.io/DetectorBank/PythonExamples.html) 
 can be found [here](https://keziah55.github.io/DetectorBank/).
 
@@ -104,3 +100,7 @@ DEBUG levels (can be |ed):
 
 Note that stuff gets printed when DEBUG == 0 (or simply exists).
 For no debugging output, don't define it at all.
+
+## Note Detection
+
+Work-in-progress note detector using the DetectorBank can be found [here](https://github.com/keziah55/NoteDetector).
