@@ -608,10 +608,13 @@ template<class Archive> void DetectorBank::load(Archive& archive)
     parameter_t freqs[numDetectors];
     parameter_t bw [numDetectors];
     for (cereal::size_type i{0}; i<numDetectors; i++) {
+        archive.setNextName("Detector");
+        archive.startNode();
         archive(cereal::make_nvp("w_in", freqs[i]));
         freqs[i] /= 2.0*M_PI;
         archive(cereal::make_nvp("bw", bw[i]));
         detectors[i]->load(archive);
+        archive.finishNode();
     }
     archive.finishNode();
 
