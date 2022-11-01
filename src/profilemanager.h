@@ -74,6 +74,10 @@ protected:
     void deep_copy_names_values(rapidxml::xml_node<>& in,
                                 rapidxml::xml_node<>& out,
                                 rapidxml::xml_document<>& mem);
+    /*!
+     * If any profiles have been modified, write to file
+     */
+    void writeProfiles();
     std::string configPath;               /*!< Path of the configuration file */
     rapidxml::file<>* configXML;          /*!< Known configurations */
     rapidxml::xml_document<> profilesDoc; /*!< XML doc of known configurations */
