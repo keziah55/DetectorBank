@@ -66,12 +66,7 @@ ProfileManager::ProfileManager(std::string config)
 
 ProfileManager::~ProfileManager()
 {
-    if (profilesModified) {
-        std::ofstream of(configPath);
-        of << "<?xml version=\"1.0\" encoding=\"utf-8\"?>" << std::endl;
-        of << profilesDoc;
-    }
-
+    writeProfiles();
     delete configXML;
 }
 
@@ -133,6 +128,8 @@ void ProfileManager::saveProfile(const std::string& name,
     
     // Add it to the xml tree
     root->append_node(content);
+
+    writeProfiles();
 }
 
 std::string ProfileManager::getProfile(const std::string& name) const
@@ -169,6 +166,15 @@ std::list<std::string> ProfileManager::profiles()
     return names;
 }
 
+void ProfileManager::writeProfiles()
+{
+    if (profilesModified) {
+        std::ofstream of(configPath);
+        of << "<?xml version=\"1.0\" encoding=\"utf-8\"?>" << std::endl;
+        of << profilesDoc;
+    }
+    profilesModified = false;
+}
 
 //  Code from Coolfluid (http://coolfluid.github.io/)
 //  to perform a deep clone of an XML node. This version
@@ -177,7 +183,6 @@ std::list<std::string> ProfileManager::profiles()
 //  before the node is attached.
 //  Source: 
 //   http://coolfluid.github.io/doxygen/utest-rapidxml_8cpp_source.html
-
 void ProfileManager::deep_copy_names_values(rapidxml::xml_node<>& in,
                                             rapidxml::xml_node<>& out, 
                                             rapidxml::xml_document<>& mem)
