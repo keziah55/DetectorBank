@@ -109,4 +109,9 @@ uninstall-local: uninstall-docs
 
 endif
 
+link-rapidxml:
+	link-rapidxml.sh
+AM_CPPFLAGS = $(RXML_CPPFLAGS)
+
+
 include $(DOXYGENLS)
