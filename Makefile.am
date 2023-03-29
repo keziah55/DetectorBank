@@ -111,7 +111,7 @@ endif
 
 link-rapidxml:
 	link-rapidxml.sh
-AM_CPPFLAGS = $(RXML_CPPFLAGS)
+AM_CPPFLAGS += @RXM_CPPFLAGS@
 
 
 include $(DOXYGENLS)

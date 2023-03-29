@@ -107,6 +107,6 @@ DX_INIT_DOXYGEN(Detectorbank, ${builddir}/Doxyfile)
 AC_SUBST([docgraphics],${srcdir}/graphics/)
 
 RXML_CPPFLAGS="-I$include/rapidxml"
-AC_SUBST(RXML_CPPFLAGS)
+AC_SUBST(@RXML_CPPFLAGS@)
 
 AC_OUTPUT
