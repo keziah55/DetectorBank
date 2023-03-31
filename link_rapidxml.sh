@@ -4,8 +4,6 @@ INCLUDE_DIR=/usr/include
 LN_TARGET_DIR="$1"/include
 TARGET_DIR="$LN_TARGET_DIR"/rapidxml
 
-hfiles=`find $INCLUDE_DIR/rapidxml*.*`
-
 rm -rf $LN_TARGET_DIR
 
 if [ -d "$INCLUDE_DIR/rapidxml" ]; then
