@@ -113,9 +113,7 @@ endif
 
 link-rapidxml:
 	$(srcdir)/link_rapidxml.sh $(srcdir)
-	@echo "###################################################################################"
-	@echo $(RXML_CPPFLAGS)
-AM_CPPFLAGS = $(RXML_CPPFLAGS)
+AM_CXXFLAGS = $(RXML_CPPFLAGS)
 
 all: link-rapidxml
 
