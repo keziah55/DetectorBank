@@ -5,6 +5,8 @@ C++/Python software to detect note events using Hopf Bifurcations.
 The full documentation, including [examples](https://keziah55.github.io/DetectorBank/PythonExamples.html) 
 can be found [here](https://keziah55.github.io/DetectorBank/).
 
+A simple GUI application for basic DetectorBank usage can be found [here](https://github.com/keziah55/detectorbank-gui).
+
 Materials relating to the development of the DetectorBank and the 
 OnsetDetector can be found [here](https://github.com/keziah55/ExtraThesisMaterial).
 
@@ -83,6 +85,15 @@ The results of the checks are written in test/test-suite.log
 
 ```
 sudo make install
+```
+
+That should be sufficient to install DetectorBank; the following steps are 
+optional/only required on some platforms.
+
+The Python bindings will be installed in `/usr/local/lib/` 
+and you may need to add this to `LD_LIBRARY_PATH`
+```
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib/
 ```
 
 On some platforms you may have to refresh the shared object cache:
