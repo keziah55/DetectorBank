@@ -106,7 +106,7 @@ DX_INIT_DOXYGEN(Detectorbank, ${builddir}/Doxyfile)
 # Tell (PDF)LaTeX the directory where external graphics live
 AC_SUBST([docgraphics],${srcdir}/graphics/)
 
-RXML_CPPFLAGS="-I$include/rapidxml"
+RXML_CPPFLAGS="-I${srcdir}/${include}/rapidxml"
 AC_SUBST(RXML_CPPFLAGS)
 
 AC_OUTPUT
