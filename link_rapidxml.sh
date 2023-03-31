@@ -7,11 +7,10 @@ TARGET_DIR="$LN_TARGET_DIR"/rapidxml
 hfiles=`find $INCLUDE_DIR/rapidxml*.*`
 
 rm -rf $LN_TARGET_DIR
-#mkdir -p $TARGET_DIR
 
 if [ -d "$INCLUDE_DIR/rapidxml" ]; then
     ln -s "$INCLUDE_DIR/rapidxml/" $LN_TARGET_DIR
-elif [ -n "${hfiles[0]}" ]; then
+elif [ -e "$INCLUDE_DIR/rapidxml.h" ] || [ -e "$INCLUDE_DIR/rapidxml.hpp" ]; then
     rm -rf "$TARGET_DIR"
     mkdir -p "$TARGET_DIR"
     find $INCLUDE_DIR/rapidxml*.* | while read rapid_xml_path; do

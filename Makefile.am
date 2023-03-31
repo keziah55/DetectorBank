@@ -113,9 +113,10 @@ endif
 
 link-rapidxml:
 	$(srcdir)/link_rapidxml.sh $(srcdir)
-AM_CPPFLAGS = @RXM_CPPFLAGS@
+	@echo "###################################################################################"
+	@echo $(RXML_CPPFLAGS)
+AM_CPPFLAGS = $(RXML_CPPFLAGS)
 
 all: link-rapidxml
-
 
 include $(DOXYGENLS)
