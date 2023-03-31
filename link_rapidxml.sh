@@ -7,6 +7,7 @@ TARGET_DIR="$LN_TARGET_DIR"/rapidxml
 rm -rf $LN_TARGET_DIR
 
 if [ -d "$INCLUDE_DIR/rapidxml" ]; then
+    mkdir -p "$LN_TARGET_DIR"
     ln -s "$INCLUDE_DIR/rapidxml/" $LN_TARGET_DIR
 elif [ -f "$INCLUDE_DIR/rapidxml.h" ] || [ -f "$INCLUDE_DIR/rapidxml.hpp" ]; then
     rm -rf "$TARGET_DIR"
