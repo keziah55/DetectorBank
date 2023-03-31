@@ -83,7 +83,7 @@ MOSTLYCLEANFILES += documentation.i $(SWIGOUTPUTS) stamp-py stamp-lib
 documentation.i: $(DOCSTAMP)
 	$(PYTHON) setup.py docs
 
-all-local: $(SWIGOUTPUTS)
+all-local:  $(SWIGOUTPUTS)
 
 # If stamp-lib (touched by library build) doesn't exist yet, don't try to make it
 stamp-lib:
@@ -108,5 +108,12 @@ uninstall-local: uninstall-docs
 
 
 endif
+
+.PHONY: link-rapidxml
+
+link-rapidxml:
+	$(srcdir)/link_rapidxml.sh $(srcdir)
+
+all: link-rapidxml
 
 include $(DOXYGENLS)

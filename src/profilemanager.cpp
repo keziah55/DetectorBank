@@ -90,9 +90,9 @@ rapidxml::xml_node<>* ProfileManager::exists(const std::string& name) const
 void ProfileManager::saveProfile(const std::string& name,
                                  const std::string& profile)
 {
-    std::cout << "save profile " << name << std::endl;
-    std::cout << profile << std::endl;
-    std::cout << "\n\n\n";
+    //std::cout << "save profile " << name << std::endl;
+    //std::cout << profile << std::endl;
+    //std::cout << "\n\n\n";
     profilesModified = true;
 
     // root is the first (<hsj>) node of the existing profiles tree
