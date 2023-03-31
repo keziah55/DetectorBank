@@ -106,6 +106,7 @@ DX_INIT_DOXYGEN(Detectorbank, ${builddir}/Doxyfile)
 # Tell (PDF)LaTeX the directory where external graphics live
 AC_SUBST([docgraphics],${srcdir}/graphics/)
 
+# Get abspath of top srcdir (assuming we're calling this script from top_srcdir/build)
 ABS_TOP_DIR="$(pwd)/.."
 RXML_CXXFLAGS="-I${ABS_TOP_DIR}/include"
 AC_SUBST(AM_CXXFLAGS, $RXML_CXXFLAGS)
