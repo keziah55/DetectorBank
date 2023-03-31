@@ -4,7 +4,7 @@
 
 INCLUDE_DIR=/usr/include
 LN_TARGET_DIR="$1"/include
-TARGET_DIR="LN_TARGET_DIR"/rapidxml
+TARGET_DIR="$LN_TARGET_DIR"/rapidxml
 
 hfiles=($INCLUDE_DIR/rapidxml*.*)
 
