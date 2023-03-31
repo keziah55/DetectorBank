@@ -1,19 +1,17 @@
 #!/bin/bash
 
-
-
 INCLUDE_DIR=/usr/include
 LN_TARGET_DIR="$1"/include
 TARGET_DIR="$LN_TARGET_DIR"/rapidxml
 
-hfiles=($INCLUDE_DIR/rapidxml*.*)
+hfiles=`find $INCLUDE_DIR/rapidxml*.*`
 
 rm -rf $LN_TARGET_DIR
 #mkdir -p $TARGET_DIR
 
 if [ -d "$INCLUDE_DIR/rapidxml" ]; then
     ln -s "$INCLUDE_DIR/rapidxml/" $LN_TARGET_DIR
-elif [ -e "${hfiles[0]}" ]; then
+elif [ -n "${hfiles[0]}" ]; then
     rm -rf "$TARGET_DIR"
     mkdir -p "$TARGET_DIR"
     find $INCLUDE_DIR/rapidxml*.* | while read rapid_xml_path; do
