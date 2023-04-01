@@ -33,7 +33,7 @@ On a Debian system, the following packages should be installed:
 * graphviz (for enhanced documentation)
 * python3-tap (for the unit tests)
 
-### Debian/Ubuntu
+### Debian/Ubuntu/Mint
 
 ```
 apt install python3-dev python3-numpy swig build-essential autoconf-archive pkg-config libtool libcereal-dev librapidxml-dev libfftw3-dev doxygen python3 graphviz python3-tap
@@ -47,7 +47,7 @@ dnf install make automake gcc gcc-c++ kernel-devel python3-devel python3-numpy s
 
 ## Installation
 
-You need to install apt install autoconf-archive for lovely
+You need to `apt install autoconf-archive` for lovely
 extra macros if you want this to build on debian.
 
 Set up the build system if required
