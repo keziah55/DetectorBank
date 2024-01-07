@@ -44,7 +44,7 @@ apt install python3-dev python3-build python3-virtualenv python3-numpy swig buil
 ### Fedora
 
 ```
-dnf install make automake gcc gcc-c++ kernel-devel python3-devel python3-numpy swig autoconf-archive libtool fftw-devel rapidxml-devel cereal-devel doxygen python3 graphviz
+dnf install make automake gcc gcc-c++ kernel-devel python3-devel python3-build python3-numpy swig autoconf-archive libtool fftw-devel rapidxml-devel cereal-devel doxygen python3 graphviz
 ```
 
 ## Installation
@@ -106,7 +106,6 @@ cd ~
 mkdir detbank
 cd detbank
 python3 -m venv .venv
-source .venv/bin/activate
 .venv/bin/python -m pip install $DETBANK_WHEEL
 ```
 
