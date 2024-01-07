@@ -89,22 +89,31 @@ The results of the checks are written in test/test-suite.log
 sudo make install
 ```
 
-That should be sufficient to install DetectorBank; the following steps are 
-optional/only required on some platforms.
-
-The Python bindings will be installed in `/usr/local/lib/` 
-and you may need to add this to `LD_LIBRARY_PATH`
-```
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib/
-```
-
 On some platforms you may have to refresh the shared object cache:
 
 ```
 sudo ldconfig
 ```
 
-Perhaps also test that the library's been installed properly by asking
+System-wide installation of Python packages via pip is deprecated, but you 
+can install `detectorbank` in a Python virtual environment via `pip` from 
+the wheel in `build/dist`. 
+For example, to create a new venv and install `detectorbank`, starting from the `build` dir:
+```
+# note that the exact name of the wheel depends on the python version you are using
+DETBANK_WHEEL=`readlink -f dist/detectorbank-1.0.0-cp311-cp311-linux_x86_64.whl`
+cd ~
+mkdir detbank
+cd detbank
+python3 -m venv .venv
+source .venv/bin/activate
+.venv/bin/python -m pip install $DETBANK_WHEEL
+```
+
+That should be sufficient to install DetectorBank; the following steps are 
+optional/only required on some platforms.
+
+Perhaps test that the library's been installed properly by asking
 for the compilation flags
 
 ```
