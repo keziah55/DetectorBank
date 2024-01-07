@@ -31,5 +31,6 @@ int main() {
 //   is(foo(), 1, "foo() should be 1");
 //   is(bar(), "a string", "bar() should be \"a string\"");
   ok(create(), "Allocate a detectorbank of 88 channels");
+
   return exit_status();
 }

@@ -116,7 +116,7 @@ public:
                  const parameter_t* freqs = EDO12_pf, 
                  parameter_t* bw = nullptr,
                  const std::size_t numDetectors = EDO12_pf_size,
-                 Features features = Features::defaults,
+                 int features = Features::defaults,
                  parameter_t damping = 0.0001,
                  const parameter_t gain = 25.0);
 
@@ -300,7 +300,7 @@ protected:
     std::size_t currentSample;    /*!< How far along the input for next read */
     parameter_t d;                /*!< Detector damping factor */
     parameter_t sr;               /*!< Operating sample rate */
-    Features features;            /*!< Detector method & normalistion */
+    int features;                 /*!< Detector method & normalistion */
     parameter_t* bw;              /*!< Array of bandwidths */
     parameter_t gain;             /*!< Audio input gain to be applided */
     
@@ -379,7 +379,7 @@ private:
                        const parameter_t mu,
                        const parameter_t d,
                        const parameter_t sr,
-                       const Features features,
+                       const int features,
                        //const parameter_t b,
                        const parameter_t gain);
     

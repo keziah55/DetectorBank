@@ -2,14 +2,17 @@ TEST_LOG_DRIVER       = env AM_TAP_AWK='$(AWK)' $(SHELL) \
                           $(top_srcdir)/build-aux/tap-driver.sh
 TEST_LOG_DRIVER_FLAGS = '--comments --ignore-exit'
 
-TESTS          = cppDetectorBank \
+TESTS          = cppDetectorBank cppNormalizer \
                  # cppNoteDetector
 
-check_PROGRAMS = cppDetectorBank \
+check_PROGRAMS = cppDetectorBank cppNormalizer \
                  # cppNoteDetector
 
 cppDetectorBank_SOURCES = c++tests-detectorbank.cpp \
                           tap++.cpp tap++.h
+
+cppNormalizer_SOURCES = c++tests-normalizer.cpp \
+                        tap++.cpp tap.h
 
 #cppNoteDetector_SOURCES = c++tests-notedetector.cpp \
 #                          tap++.cpp tap++.h
