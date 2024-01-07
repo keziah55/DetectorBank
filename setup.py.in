@@ -102,7 +102,7 @@ detectorbank = Extension(
     language             = 'c++',
     undef_macros         = ['NDEBUG'],
     include_dirs         = ['@abs_top_srcdir@/src'],
-    library_dirs         = ['./src/.libs'],
+    library_dirs         = ['@abs_top_builddir@/src/.libs'],
     runtime_library_dirs = ['@libdir@'],
     libraries            = libs
 )

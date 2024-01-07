@@ -20,6 +20,8 @@ something out.
 On a Debian system, the following packages should be installed:
 
 * python3-dev
+* python3-build
+* python3-virtualenv
 * python3-numpy
 * swig (to build python3 bindings)
 * build-essential
@@ -36,7 +38,7 @@ On a Debian system, the following packages should be installed:
 ### Debian/Ubuntu/Mint
 
 ```
-apt install python3-dev python3-numpy swig build-essential autoconf-archive pkg-config libtool libcereal-dev librapidxml-dev libfftw3-dev doxygen python3 graphviz python3-tap
+apt install python3-dev python3-build python3-virtualenv python3-numpy swig build-essential autoconf-archive pkg-config libtool libcereal-dev librapidxml-dev libfftw3-dev doxygen python3 graphviz python3-tap
 ```
 
 ### Fedora
