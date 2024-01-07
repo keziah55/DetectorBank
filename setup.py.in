@@ -51,6 +51,6 @@ setup(
     install_requires = [
         "numpy",
         "tap.py",
-        ],
+    ],
 )
 
