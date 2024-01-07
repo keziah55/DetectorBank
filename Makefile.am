@@ -81,21 +81,23 @@ SWIGFILES = $(SWIGINPUTS) $(SWIGOUTPUTS)
 MOSTLYCLEANFILES += documentation.i $(SWIGOUTPUTS) stamp-py stamp-lib
 
 documentation.i: $(DOCSTAMP)
-	$(PYTHON) setup.py docs
+	$(PYTHON) $(srcdir)/doxy2swig.py $(DX_DOCDIR)/xml/index.xml ./documentation.i
+	$(PYTHON) $(srcdir)/doc_fix.py ./documentation.i
 
 all-local:  $(SWIGOUTPUTS)
 
 # If stamp-lib (touched by library build) doesn't exist yet, don't try to make it
 stamp-lib:
 
-# All of the swig targets get build with a sinlge command,
+# All of the swig targets get build with a single command,
 # so this is a grouped target.
 $(SWIGOUTPUTS) &: $(SWIGINPUTS) stamp-lib
-	$(PYTHON) setup.py buildDB
+	$(SWIG) -python -c++ -o detectorbank_wrap.cpp -I$(srcdir)/src $(srcdir)/detectorbank.i
+	$(PYTHON) -m build
 
 # installation requires SWIG to be complete.
 install-exec-local: $(SWIGOUTPUTS)
-	$(PYTHON) setup.py install
+	$(PYTHON) -m pip install
 
 clean-local:
 	$(PYTHON) setup.py clean --all
