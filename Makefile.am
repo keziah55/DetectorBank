@@ -97,10 +97,8 @@ $(SWIGOUTPUTS) &: $(SWIGINPUTS) stamp-lib
 
 # installation requires SWIG to be complete.
 install-exec-local: $(SWIGOUTPUTS)
-#	$(PYTHON) -m pip install
 
 clean-local:
-	$(PYTHON) setup.py clean --all
 	$(RM) -r __pycache__
 	$(RM) $(MOSTLYCLEANFILES)
 
