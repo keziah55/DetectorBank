@@ -89,7 +89,11 @@ The results of the checks are written in test/test-suite.log
 sudo make install
 ```
 
-On some platforms you may have to refresh the shared object cache:
+On some platforms you may have to add `/usr/local/lib/` to your `LD_LIBRARY_PATH`
+```
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib/
+```
+and/or refresh the shared object cache:
 
 ```
 sudo ldconfig
