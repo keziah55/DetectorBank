@@ -15,4 +15,24 @@ export PYTHONPATH=..:@srcdir@:$(dirname $sharedobj)
 
 echo "using srcdir = @srcdir@; PYTHONPATH=$PYTHONPATH; LD_LIBRARY_PATH=$LD_LIBRARY_PATH"
 echo "WD now $PWD"
-@PYTHON@ @srcdir@/Pytests.py
+
+whl=$(find ../dist -name *.whl)
+venv_dir=".venv"
+venv_py="$venv_dir/bin/python"
+
+if [ -z $whl ]; then
+  echo "Unable to find python wheel in ../dist"
+else
+  echo "Creating venv..."
+  if [ -d $venv_dir ]; then
+    rm -rf $venv_dir
+  fi
+  @PYTHON@ -m venv $venv_dir
+  $venv_py -m pip install $whl
+  #$venv_py -m pytest @srcdir@/test_detectorbank.py
+  # hello
+  $venv_py @srcdir@/Pytests.py
+fi
+
+
+#@PYTHON@ @srcdir@/Pytests.py
