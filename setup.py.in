@@ -50,9 +50,10 @@ setup(
     py_modules  = ['detectorbank'],
     install_requires = [
         "numpy",
-        "tap.py",
+        # "tap.py",
         "matplotlib",
-        #"pytest",
+        "scipy",
+        "pytest",
     ],
 )
 

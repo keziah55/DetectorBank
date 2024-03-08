@@ -31,6 +31,7 @@ else
   @PYTHON@ -m venv $venv_dir
   export=PATH="$venv_dir/bin:$PATH"
   $venv_py -m pip install $whl --force-reinstall
-  $venv_py @srcdir@/Pytests.py
+#   $venv_py @srcdir@/Pytests.py
+  $venv_py -m pytest @srcdir@/python_tests
 fi
 
