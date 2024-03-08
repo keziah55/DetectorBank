@@ -22,17 +22,15 @@ venv_py="$venv_dir/bin/python"
 
 if [ -z $whl ]; then
   echo "Unable to find python wheel in ../dist"
+  exit 1
 else
   echo "Creating venv..."
   if [ -d $venv_dir ]; then
     rm -rf $venv_dir
   fi
   @PYTHON@ -m venv $venv_dir
-  $venv_py -m pip install $whl
-  #$venv_py -m pytest @srcdir@/test_detectorbank.py
-  # hello
+  export=PATH="$venv_dir/bin:$PATH"
+  $venv_py -m pip install $whl --force-reinstall
   $venv_py @srcdir@/Pytests.py
 fi
 
-
-#@PYTHON@ @srcdir@/Pytests.py
