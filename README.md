@@ -79,7 +79,7 @@ python -m pip install numpy build wheel
 If you're using a virtual environment, pass the path to the python executable to `configure`,
 for example
 ```
-../configure PYTHON=./.venv/bin/python
+../configure PYTHON=.venv/bin/python
 ```
 Otherwise,
 ```
