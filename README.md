@@ -66,14 +66,24 @@ a new directory.
 ```
 mkdir -p build
 cd build
-../configure
 ```
 
 If you want to build the Python extension, you'll need to create a virtual environment
+(or use an existing one)
 ```
 python -m venv .venv
 source .venv/bin/activate
 python -m pip install numpy build wheel
+```
+
+If you're using a virtual environment, pass the path to the python executable to `configure`,
+for example
+```
+../configure PYTHON=./.venv/bin/python
+```
+Otherwise,
+```
+../configure
 ```
 
 Then build Detectorbank

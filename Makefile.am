@@ -1,5 +1,3 @@
-PYTHON = .venv/bin/python
-
 SUBDIRS = src test
 
 EXTRA_DIST =  detectorbank.i python_docstrings.i numpy.i \

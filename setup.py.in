@@ -26,14 +26,23 @@ except ImportError:
     msg += "(You may need to active a virtual environment before running this.)"
     raise Exception(msg)
 else:
-    numpy_include_path = Path(np.__file__).parent.joinpath("_core", "include")
-    arrayobject_file = numpy_include_path.joinpath("numpy", "arrayobject.h")
-    if not arrayobject_file.exists():
-        msg = f"Could not find numpy/arrayobjcet.h in {numpy_include_path}. "
+    numpy_dir = Path(np.__file__).parent
+    core_dirs = ["_core", "core"]
+    valid_path_found = False
+    for core_dir in core_dirs:
+        numpy_include_path = numpy_dir.joinpath(core_dir, "include")
+        arrayobject_file = numpy_include_path.joinpath("numpy", "arrayobject.h")
+        if arrayobject_file.exists():
+            valid_path_found = True
+            break
+
+    if not valid_path_found:
+        msg = f"Could not find numpy/arrayobject.h in 'core' or '_core' in . "
         msg += "Build will fail. "
         raise Exception(msg)
     else:
         print(f"Using {numpy_include_path=}")
+
     numpy_include_path = str(numpy_include_path)
 
 package_name = 'detectorbank'

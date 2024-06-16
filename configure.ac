@@ -79,7 +79,11 @@ AS_IF([test "x$with_swig" = "xyes"],
       ],
       [AC_MSG_NOTICE([SWIG interface generation of python bindings is disabled])])
 
-AM_CONDITIONAL([DO_SWIG_BINDINGS], [test "x$with_swig" = "xyes"])         
+AM_CONDITIONAL([DO_SWIG_BINDINGS], [test "x$with_swig" = "xyes"])
+
+AC_ARG_VAR([python],
+    [Python executable to use]
+)
 
 AC_SUBST([PACKAGE_VERSION_MAJOR],package_version_major)
 AC_SUBST([PACKAGE_VERSION_MINOR],package_version_minor)
