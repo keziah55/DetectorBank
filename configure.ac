@@ -106,9 +106,23 @@ DX_INIT_DOXYGEN(Detectorbank, ${builddir}/Doxyfile)
 # Tell (PDF)LaTeX the directory where external graphics live
 AC_SUBST([docgraphics],${srcdir}/graphics/)
 
+## Changes:
+# below, I've tried to set the numpy include dir, then combine this with the
+# radidxml include dir into the EXTRA_CXXFLAGS var
+# which I think works, it's just the NUMPY_INCLUDE thing that doesn't
+# we also should use a variable for the python executable, as depending on the system
+# or user setup, it could be `python`, `python3` or `path/to/venv/bin/python`
+
 # Get abspath of top srcdir (assuming we're calling this script from top_srcdir/build)
 ABS_TOP_DIR="$(pwd)/.."
-RXML_CXXFLAGS="-I${ABS_TOP_DIR}/include"
-AC_SUBST(AM_CXXFLAGS, $RXML_CXXFLAGS)
+# RXML_CXXFLAGS="-I${ABS_TOP_DIR}/include"
+# AC_SUBST(AM_CXXFLAGS, $RXML_CXXFLAGS)
+
+NUMPY_INCLUDE="$(python -c 'import numpy as np;from pathlib import Path;print(Path(np.__file__).parent.joinpath("core", "include"))')"
+# NUMPY_CXXFLAGS="-I${NUMPY_INCLUDE}"
+
+EXTRA_CXXFLAGS="-I${ABS_TOP_DIR}/include -I${NUMPY_INCLUDE}"
+
+AC_SUBST(AM_CXXFLAGS, $EXTRA_CXXFLAGS)
 
 AC_OUTPUT
