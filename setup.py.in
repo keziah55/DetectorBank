@@ -16,6 +16,25 @@ debug = 0
 from setuptools import setup, Extension, Command
 from setuptools.command.build_ext import build_ext as _build_ext
 import os
+from pathlib import Path
+
+try:
+    import numpy as np
+except ImportError:
+    msg = "Building DetectorBank python extension requires numpy. "
+    msg += "Please ensure numpy is installed. "
+    msg += "(You may need to active a virtual environment before running this.)"
+    raise Exception(msg)
+else:
+    numpy_include_path = Path(np.__file__).parent.joinpath("_core", "include")
+    arrayobject_file = numpy_include_path.joinpath("numpy", "arrayobject.h")
+    if not arrayobject_file.exists():
+        msg = f"Could not find numpy/arrayobjcet.h in {numpy_include_path}. "
+        msg += "Build will fail. "
+        raise Exception(msg)
+    else:
+        print(f"Using {numpy_include_path=}")
+    numpy_include_path = str(numpy_include_path)
 
 package_name = 'detectorbank'
 
@@ -35,7 +54,7 @@ detectorbank = Extension(
     sources              = ['detectorbank_wrap.cpp'],
     language             = 'c++',
     undef_macros         = ['NDEBUG'],
-    include_dirs         = ['@abs_top_srcdir@/src'],
+    include_dirs         = ['@abs_top_srcdir@/src', numpy_include_path],
     library_dirs         = ['@abs_top_builddir@/src/.libs'],
     runtime_library_dirs = ['@libdir@'],
     libraries            = libs

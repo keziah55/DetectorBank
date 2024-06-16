@@ -1,3 +1,5 @@
+PYTHON = .venv/bin/python
+
 SUBDIRS = src test
 
 EXTRA_DIST =  detectorbank.i python_docstrings.i numpy.i \
@@ -93,7 +95,8 @@ stamp-lib:
 # so this is a grouped target.
 $(SWIGOUTPUTS) &: $(SWIGINPUTS) stamp-lib
 	$(SWIG) -python -c++ -o detectorbank_wrap.cpp -I$(srcdir)/src $(srcdir)/detectorbank.i
-	$(PYTHON) -m build
+	$(PYTHON) -m build -n
+
 
 # installation requires SWIG to be complete.
 install-exec-local: $(SWIGOUTPUTS)

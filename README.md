@@ -67,6 +67,17 @@ a new directory.
 mkdir -p build
 cd build
 ../configure
+```
+
+If you want to build the Python extension, you'll need to create a virtual environment
+```
+python -m venv .venv
+source .venv/bin/activate
+python -m pip install numpy build wheel
+```
+
+Then build Detectorbank
+```
 make
 ```
 
