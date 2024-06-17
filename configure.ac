@@ -85,6 +85,8 @@ AC_ARG_VAR([python],
     [Python executable to use]
 )
 
+AC_SUBST(PYTHON, $(realpath -s $PYTHON))
+
 AC_SUBST([PACKAGE_VERSION_MAJOR],package_version_major)
 AC_SUBST([PACKAGE_VERSION_MINOR],package_version_minor)
 AC_SUBST([PACKAGE_VERSION_MICRO],package_version_micro)
