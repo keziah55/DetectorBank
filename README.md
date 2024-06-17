@@ -76,12 +76,15 @@ source .venv/bin/activate
 python -m pip install numpy build wheel
 ```
 
+Note that `pip install numpy` will install numpy version 2.x. If you want to build
+Detectorbank to work with numpy 1.x, you'll need to specify your required numpy version.
+
 If you're using a virtual environment, pass the path to the python executable to `configure`,
 for example
 ```
 ../configure PYTHON=.venv/bin/python
 ```
-Otherwise,
+Otherwise, to use the system Python,
 ```
 ../configure
 ```
@@ -91,8 +94,9 @@ Then build Detectorbank
 make
 ```
 
-Optionally build and run the unit tests
-
+Optionally build and run the unit tests. Note that the Python tests execute in their own
+virtual environemtn, so before running `make check`, you may need to `deactivate` your
+current venv.
 ```
 make check
 ```
