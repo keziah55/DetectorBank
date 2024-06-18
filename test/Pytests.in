@@ -1,17 +1,8 @@
 #!@SHELL@
 
 # Tests are run on the newly built _detectorbank extension,
-# which resides in an arch-dependent build directory one
-# under ../build. We need to know that directory so the
-# directory can be loaded from there.
-# Also, the library has been built in the source directory
-# under .libs at this point, but not installed.
-#sharedobj=$(find ../build -name _detectorbank\*)
-#export LD_LIBRARY_PATH=../src/.libs
-
-# Similarly, test the newly built detectorbank.py,
-# not some previously installed one.
-#export PYTHONPATH=..:@srcdir@:$(dirname $sharedobj)
+# which is installed into a local python virtual environment
+# from the wheel which has been built already.
 
 echo "using srcdir = @srcdir@; PYTHONPATH=$PYTHONPATH; LD_LIBRARY_PATH=$LD_LIBRARY_PATH"
 echo "WD now $PWD"
@@ -24,6 +15,16 @@ if [ -z $whl ]; then
   echo "Unable to find python wheel in ../dist"
   exit 1
 else
+  restore_env ()  {
+    deactivate
+    if [ ! -z $dev_venv ] ; then
+      echo "Restoring original virtual environment $dev_venv"
+      source "$dev_venv/bin/activate"
+    fi
+  }
+  trap restore_env EXIT
+  dev_venv="$VIRTUAL_ENV"
+  [ -z "$dev_venv" ] && deactivate
   echo "Creating venv..."
   if [ -d $venv_dir ]; then
     rm -rf $venv_dir
