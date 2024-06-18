@@ -6,12 +6,12 @@
 # directory can be loaded from there.
 # Also, the library has been built in the source directory
 # under .libs at this point, but not installed.
-sharedobj=$(find ../build -name _detectorbank\*)
-export LD_LIBRARY_PATH=../src/.libs
+#sharedobj=$(find ../build -name _detectorbank\*)
+#export LD_LIBRARY_PATH=../src/.libs
 
 # Similarly, test the newly built detectorbank.py,
 # not some previously installed one.
-export PYTHONPATH=..:@srcdir@:$(dirname $sharedobj)
+#export PYTHONPATH=..:@srcdir@:$(dirname $sharedobj)
 
 echo "using srcdir = @srcdir@; PYTHONPATH=$PYTHONPATH; LD_LIBRARY_PATH=$LD_LIBRARY_PATH"
 echo "WD now $PWD"
