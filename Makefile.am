@@ -77,23 +77,25 @@ uninstall-docs-local:
 if DO_SWIG_BINDINGS
 SWIGINPUTS = documentation.i detectorbank.i
 SWIGOUTPUTS = detectorbank_wrap.cpp detectorbank.py
-SWIGFILES = $(SWIGINPUTS) $(SWIGOUTPUTS)
-MOSTLYCLEANFILES += documentation.i $(SWIGOUTPUTS) stamp-py stamp-lib
+SWIGFILES = $(SWIGINPUTS) $(SWIGOUTPUTS) stamp-wheel
+MOSTLYCLEANFILES += documentation.i $(SWIGOUTPUTS) stamp-py stamp-lib stamp-wheel
 
 documentation.i: $(DOCSTAMP)
 	$(PYTHON) $(srcdir)/doxy2swig.py $(DX_DOCDIR)/xml/index.xml ./documentation.i
 	$(PYTHON) $(srcdir)/doc_fix.py ./documentation.i
 
-all-local:  $(SWIGOUTPUTS)
+all-local:  $(SWIGFILES)
 
 # If stamp-lib (touched by library build) doesn't exist yet, don't try to make it
 stamp-lib:
 
-# All of the swig targets get build with a single command,
+# All of the swig targets get built with a single command,
 # so this is a grouped target.
 $(SWIGOUTPUTS) &: $(SWIGINPUTS) stamp-lib
 	$(SWIG) -python -c++ -o detectorbank_wrap.cpp -I$(srcdir)/src $(srcdir)/detectorbank.i
-	$(PYTHON) -m build -n
+
+stamp-wheel: $(SWIGOUTPUTS)
+	$(PYTHON) -m build -n && find . -name \*.whl -ls > stamp-wheel
 
 
 # installation requires SWIG to be complete.
