@@ -95,7 +95,7 @@ make
 ```
 
 Optionally build and run the unit tests. Note that the Python tests execute in their own
-virtual environemtn, so before running `make check`, you may need to `deactivate` your
+virtual environment, so before running `make check`, you may need to `deactivate` your
 current venv.
 ```
 make check
