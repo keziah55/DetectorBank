@@ -68,7 +68,7 @@ mkdir -p build
 cd build
 ```
 
-The Python extension requires [numpy](https://numpy.org/); your system numpy version
+The Python extension requires [NumPy](https://numpy.org/); your system numpy version
 will be used by default. However, this may lead to issues if your system NumPy version
 is different from the version you use in a virtual environment. If you want to build
 the `detectorbank` extension to work with a specifc NumPy version, we recommend that
@@ -76,51 +76,48 @@ you build it in a venv with your required NumPy version installed, for example:
 ```bash
 python -m venv .venv
 source .venv/bin/activate
-python -m pip install numpy build wheel setuptools
+python -m pip install "numpy<2" build wheel setuptools
 ```
 
-If you're using a virtual environment, pass the path to the python executable to `configure`,
-for example
-```
-../configure PYTHON=.venv/bin/python
-```
-Otherwise, to use the system Python,
-```
+Next configure the build system
+```bash
 ../configure
 ```
-
-Then build Detectorbank
+Note that if you're using a virtual environment, pass the path to the python executable
+to `configure`, for example
+```bash
+../configure PYTHON=.venv/bin/python
 ```
+
+Then build `DetectorBank`
+```bash
 make
 ```
 
 Optionally build and run the unit tests. Note that the Python tests execute in their own
 virtual environment, so before running `make check`, you may need to `deactivate` your
-current venv.
-```
+build venv.
+```bash
 make check
 ```
 
 Note that to run a single test, you can look in `tests/Makefile.am` then supply a replacement for TESTS naming
-only those you wish to run, e.g.:
-
-```
+only those you wish to run, e.g.
+```bash
 make check TESTS='Pytests'
 ```
 
 The results of the checks are written in test/test-suite.log
-
-```
+```bash
 sudo make install
 ```
 
 On some platforms you may have to add `/usr/local/lib/` to your `LD_LIBRARY_PATH`
-```
+```bash
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib/
 ```
 and/or refresh the shared object cache:
-
-```
+```bash
 sudo ldconfig
 ```
 
@@ -128,9 +125,9 @@ System-wide installation of Python packages via pip is deprecated, but you
 can install `detectorbank` in a Python virtual environment via `pip` from 
 the wheel in `build/dist`. 
 For example, to create a new venv and install `detectorbank`, starting from the `build` dir:
-```
+```bash
 # note that the exact name of the wheel depends on the python version you are using
-DETBANK_WHEEL=`readlink -f dist/detectorbank-1.0.0-cp311-cp311-linux_x86_64.whl`
+DETBANK_WHEEL=`readlink -f dist/detectorbank-1.0.0-cp312-cp312-linux_x86_64.whl`
 cd ~
 mkdir detbank
 cd detbank
@@ -143,15 +140,13 @@ optional/only required on some platforms.
 
 Perhaps test that the library's been installed properly by asking
 for the compilation flags
-
-```
+```bash
 ( cd ; pkg-config detectorbank --cflags --libs )
 ```
 
 Documentation is built in the doxygen-doc subdirectory and installed
-in $(docdir)/html. The default top page for the documentation is:
-
-```
+in $(docdir)/html. The default top page for the documentation is
+```bash
 /usr/local/share/doc/detectorbank/html/index.html
 ```
 
@@ -160,9 +155,8 @@ pass the `--without-swig` to the configure command. Note that Python3
 is still required to build the library.
 
 You can build for debugging by defining the C preprocesor macro DEBUG when
-compiling. For example:
-
-```
+compiling. For example
+```bash
 ../configure CPPFLAGS=-DDEBUG=2
 ```
 
