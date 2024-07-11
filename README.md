@@ -74,9 +74,10 @@ is different from the version you use in a virtual environment. If you want to b
 the `detectorbank` extension to work with a specifc NumPy version, we recommend that
 you build it in a venv with your required NumPy version installed, for example:
 ```bash
+# optional step to build against a specific numpy version
 python -m venv .venv
 source .venv/bin/activate
-python -m pip install "numpy<2" build wheel setuptools
+python -m pip install "numpy>=2" build wheel setuptools
 ```
 
 Next configure the build system
