@@ -68,16 +68,16 @@ mkdir -p build
 cd build
 ```
 
-If you want to build the Python extension, you'll need to create a virtual environment
-(or use an existing one)
-```
+The Python extension requires [numpy](https://numpy.org/); your system numpy version
+will be used by default. However, this may lead to issues if your system NumPy version
+is different from the version you use in a virtual environment. If you want to build
+the `detectorbank` extension to work with a specifc NumPy version, we recommend that
+you build it in a venv with your required NumPy version installed, for example:
+```bash
 python -m venv .venv
 source .venv/bin/activate
 python -m pip install numpy build wheel setuptools
 ```
-
-Note that `pip install numpy` will install numpy version 2.x. If you want to build
-Detectorbank to work with numpy 1.x, you'll need to specify your required numpy version.
 
 If you're using a virtual environment, pass the path to the python executable to `configure`,
 for example
