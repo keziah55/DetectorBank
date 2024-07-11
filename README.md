@@ -73,7 +73,7 @@ If you want to build the Python extension, you'll need to create a virtual envir
 ```
 python -m venv .venv
 source .venv/bin/activate
-python -m pip install numpy build wheel
+python -m pip install numpy build wheel setuptools
 ```
 
 Note that `pip install numpy` will install numpy version 2.x. If you want to build
