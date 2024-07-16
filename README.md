@@ -71,7 +71,7 @@ cd build
 The Python extension requires [NumPy](https://numpy.org/); your system numpy version
 will be used by default. However, this may lead to issues if your system NumPy version
 is different from the version you use in a virtual environment. If you want to build
-the `detectorbank` extension to work with a specifc NumPy version, we recommend that
+the `detectorbank` extension to work with a specific NumPy version, we recommend that
 you build it in a venv with your required NumPy version installed, for example:
 ```bash
 # optional step to build against a specific numpy version
