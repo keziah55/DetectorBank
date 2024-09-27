@@ -70,7 +70,7 @@ DetectorBank::DetectorBank(const parameter_t sr,
                            const parameter_t* freqs,
                            parameter_t* bw,
                            const std::size_t numDetectors,
-                           Features features,
+                           int features,
                            parameter_t damping,
                            const parameter_t gain)
     : inBufSize(inputBufferSize)
@@ -234,7 +234,7 @@ void DetectorBank::makeDetectors(const std::size_t numDetectors,
                                  const parameter_t mu,
                                  const parameter_t d,
                                  const parameter_t sr,
-                                 const Features features,
+                                 const int features,
                                  const parameter_t gain
                                 )
 {
