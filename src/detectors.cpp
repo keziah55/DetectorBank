@@ -37,7 +37,7 @@ AbstractDetector::~AbstractDetector()
 void AbstractDetector::processAudio(discriminator_t* target,
                                     const inputSample_t* start, std::size_t count)
 {
-    // perfom Hopf bifurcation calculation
+    // perform Hopf bifurcation calculation
     process(target, start, count);
     
     // combine amplitude scaling and amplitude normalisation factor into single value

@@ -6,7 +6,7 @@
 #include "detectortypes.h"
 
 /*! Shift a signal by a given frequency. Use SSB modulation,
- *  implemeted via the Hilbert transform (which is itself
+ *  implemented via the Hilbert transform (which is itself
  *  implemented with FFTs from the FFTW library).
  */
 class FrequencyShifter {

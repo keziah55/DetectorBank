@@ -67,9 +67,9 @@ namespace slidingbuffer {
     };
     
     /*!
-     * Exception thown when the entity at position 'index' is
+     * Exception thrown when the entity at position 'index' is
      * not yet available and the SegmentProducer for this SlidingBuffer
-     * is unable to produce further data to satisfy the reqest.
+     * is unable to produce further data to satisfy the request.
      */
     class IndexOutOfRangeException
         : public SlidingBufferException {
@@ -125,10 +125,10 @@ namespace slidingbuffer {
      * It is the underlying blocksize which is required of a
      * SegmentProducer.
      * 
-     * Segements provide an implementation of the `[]` operator;
+     * Segments provide an implementation of the `[]` operator;
      * however, access to the underlying data would normally be
      * via the aggregating class SlidingBuffer. Classes derived
-     * from SlidingBuffer may need to access the segements' data
+     * from SlidingBuffer may need to access the segments' data
      * directly, however.
      *
      * \tparam T The type of each entity stored in the Segment.
@@ -262,7 +262,7 @@ namespace slidingbuffer {
          * 
          * \param sp The producer whose `generate()` method is invoked to
          *        populate a new segment
-         * \param max_segs The maxiumum number of segments stored in the buffer
+         * \param max_segs The maximum number of segments stored in the buffer
          * \param seg_size The number of entities in each segment
          */
         SlidingBuffer(P& sp,

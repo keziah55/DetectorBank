@@ -150,7 +150,7 @@ void DetectorBank::setDBComponents(const parameter_t* frequencies,
     // use FIR filter to implement Hilbert transform in FrequencyShifter
     FrequencyShifter::HilbertMode mode = FrequencyShifter::HilbertMode::fir;
 
-    // determine modulation criterea from features
+    // determine modulation criteria from features
     FrequencyShifter* fs {nullptr};
 
     for (std::size_t i {0}; i < numDetectors; i++) {

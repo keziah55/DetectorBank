@@ -95,10 +95,10 @@ public:
      * of reported CPU cores
      * \param freqs Array of frequencies for the detector bank
      * \param bw Array of bandwidths for each detector. If nullptr, minimum 
-     * bandwidth detetors will be constructed
+     * bandwidth detectors will be constructed
      * \param numDetectors Length of the freqs and bandwidths arrays
      * \param features Numerical method (runge_kutta or central_difference),
-     * freqency normalisation (freq_unnormalized or search_normalized) and
+     * frequency normalisation (freq_unnormalized or search_normalized) and
      * amplitude normalisation (amp_unnormalized or amp_normalized).
      * Default is runge_kutta|freq_unnormalized|amp_normalized.
      * See \link FeaturesExplained DetectorBank Features\endlink for more information.
@@ -287,7 +287,7 @@ protected:
     void stringToFeatures(const std::string& desc);
     /*! Produce a human-readable string describing
      *  this DetectorBank's features using featuresToStringMap.
-     * \returns Human-readable comma-separated string descibing the features
+     * \returns Human-readable comma-separated string describing the features
      */
     const std::string featuresToString(void) const;
 
@@ -300,9 +300,9 @@ protected:
     std::size_t currentSample;    /*!< How far along the input for next read */
     parameter_t d;                /*!< Detector damping factor */
     parameter_t sr;               /*!< Operating sample rate */
-    Features features;            /*!< Detector method & normalistion */
+    Features features;            /*!< Detector method & normalisation */
     parameter_t* bw;              /*!< Array of bandwidths */
-    parameter_t gain;             /*!< Audio input gain to be applided */
+    parameter_t gain;             /*!< Audio input gain to be applied */
     
     /*! If a gain is applied to the input signal, this pointer refers
      *  to the locally allocated buffer containing the amplified signal
@@ -332,7 +332,7 @@ protected:
         const parameter_t f_actual;  /*!< The frequency of the detector used */
         const inputSample_t* signal; /*!< Pointer to a frequency-shifted version
                                           of the input data */
-        const parameter_t bandwidth; /*!< Detector bandwdith */
+        const parameter_t bandwidth; /*!< Detector bandwidth */
     };
     
     /*! Vector of detector_components describing each AbstractDetector in
@@ -364,7 +364,7 @@ private:
      * according to the required feature set. The detectors are pushed
      * appended to the protected vector of detectors. Would normally only
      * be called when then class is being constructed or deserialised.
-     * If the f is not provided (nullptr), the initial freqency is set
+     * If the f is not provided (nullptr), the initial frequency is set
      * to 0Hz in the expectation that it will be corrected later on during
      * a deserialisation process. In this case, normalisation will also
      * be skipped.
@@ -373,7 +373,7 @@ private:
      * \param d Damping
      * \param sr Sample rate
      * \param features Type of filter and normalisation method
-     * \param b First Lyapunov coeffcient
+     * \param b First Lyapunov coefficient
      */
     void makeDetectors(const std::size_t numDetectors,
                        const parameter_t mu,

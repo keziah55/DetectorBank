@@ -30,7 +30,7 @@ public:
     /*! Protocol version in use by this release.
      * 
      * The protocol version must agree with any file which the
-     * DetectorBank attemts to load.
+     * DetectorBank attempts to load.
      */
     static const char protocol[];
     /*!

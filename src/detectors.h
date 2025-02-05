@@ -216,8 +216,8 @@ protected:
  * \f[\dot z=(\mu+j\omega_0)z + b|z|^2z + X\f]
  * with control parameter \f$\mu\f$, first Lyapunov coeffcient \f$b\f$ (real)
  * and driving force \f$X\f$. For a supercritical bifurcation, \f$b < 0\f$.
- * \f$b = 0\f$ yeilds a degenerate ("Bautin") bifurcation, and
- * \f$b > 0\f$ yeilds a subcritical bifurcation which is unstable.
+ * \f$b = 0\f$ yields a degenerate ("Bautin") bifurcation, and
+ * \f$b > 0\f$ yields a subcritical bifurcation which is unstable.
  */
 class CDDetector : public AbstractDetector {
 public:
@@ -280,13 +280,13 @@ private:
  * y_{n+1} = y_n + \frac\delta 3(k_0 + 2k_1 + 2k_2 + k_3).
  * \f]
  * 
- * This procedure is used iterativey to find
+ * This procedure is used iteratively to find
  * output samples of the Hopf bifurcation
  * \f[\dot z=(\mu+j\omega_0)z + b|z|^2z + X\f]
- * with control parameter \f$\mu\f$, first Lyapunov coeffcient \f$b\f$ (real)
+ * with control parameter \f$\mu\f$, first Lyapunov coefficient \f$b\f$ (real)
  * and driving force \f$X\f$. For a supercritical bifurcation, \f$b < 0\f$.
- * \f$b = 0\f$ yeilds a degenerate ("Bautin") bifurcation, and
- * \f$b > 0\f$ yeilds a subcritical bifurcation which is unstable.
+ * \f$b = 0\f$ yields a degenerate ("Bautin") bifurcation, and
+ * \f$b > 0\f$ yields a subcritical bifurcation which is unstable.
  */
 class RK4Detector : public AbstractDetector {
 public:

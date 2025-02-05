@@ -123,7 +123,7 @@ void ProfileManager::saveProfile(const std::string& name,
     rapidxml::xml_node<>* content { profilesDoc.clone_node(sourceNode) };
     // Set its name attribute
     content->append_attribute(profilesDoc.allocate_attribute("name", n));
-    // Sort the names and vaules out
+    // Sort the names and values out
     deep_copy_names_values(*sourceNode, *content, profilesDoc);
     
     // Add it to the xml tree

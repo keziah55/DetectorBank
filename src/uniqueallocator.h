@@ -14,7 +14,7 @@ namespace slidingbuffer {
 * 
 * Containers using this allocator can conveniently be used
 * to hold pointers to dynamically allocated objects, so
-* long as the only access to the objecs is uniquely through
+* long as the only access to the objects is uniquely through
 * the container.
 * 
 * Since the pointers are stored uniquely in their particular
@@ -36,7 +36,7 @@ public:
     using value_type    = T;      //!< Type of values to allocate
 
     // not required, unless used
-    /*! Constuctor */
+    /*! Constructor */
     UniqueAllocator() noexcept {}
     
     template <class U> UniqueAllocator(UniqueAllocator<U> const&) noexcept {}

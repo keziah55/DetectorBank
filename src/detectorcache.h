@@ -13,7 +13,7 @@ namespace detectorcache {
      * 
      * The 2D nature of the storage means that the specialisation
      * of SlidingBuffer is somewhat non-trivial. Refer to the detailed
-     * description of detectorcache::DetectorCache for a full explaination
+     * description of detectorcache::DetectorCache for a full explanation
      * of the data structures involved.
      */
     class Producer : public slidingbuffer::SegmentProducer<result_t *>
@@ -65,7 +65,7 @@ namespace detectorcache {
                                      const std::size_t idx,
                                      const std::size_t size);
         /*!
-         * Establish wheter there is further data to be read from the
+         * Establish whether there is further data to be read from the
          * DetectorBank associated with this cache.
          * 
          * \returns `true` if more data is available, otherwise `false`.
@@ -92,7 +92,7 @@ namespace detectorcache {
         */
         parameter_t getSR(void) const { return db.getSR(); };
         /*!
-         * Enquire the number of channles for which data is produced
+         * Enquire the number of channels for which data is produced
          * \return The number of channels for which this Producer shall
          *         provide valid data.
          */
@@ -144,7 +144,7 @@ namespace detectorcache {
          * containing the address of the first result of the channel
          * at the analysis-block sample-time origin.
          * The analysis block is stored in a contiguous 2D array
-         * of result values. Conseqently the size parameter in particular
+         * of result values. Consequently the size parameter in particular
          * refers to the number of channels rather than the number of samples,
          * or number of samples per channel. Refer to the extended documentation
          * for detectorcache::DetectorCache for the bigger picture.
@@ -254,7 +254,7 @@ namespace detectorcache {
          *           buffer in samples.
          */
         std::size_t end(void) { return p.getBuflen(); };
-        /*! Get the sample rate of the associtaed DetectorBank
+        /*! Get the sample rate of the associated DetectorBank
          */
         parameter_t getSR(void) const { return p.getSR(); };
         /*! Get the number of channels in the cache
